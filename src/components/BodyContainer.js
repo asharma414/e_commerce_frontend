@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import ItemCard from './ItemCard'
+import ArtCard from './ArtCard'
 import { Card } from 'semantic-ui-react'
 
-export default class Container extends Component {
+export default class BodyContainer extends Component {
 
     state = {
         artifacts: []
@@ -17,7 +17,7 @@ export default class Container extends Component {
     render() {
         return (
             <Card.Group>
-                {this.state.artifacts.map(artifact => <ItemCard key={artifact.id} artifact={artifact} />)}
+                {this.state.artifacts.map(artifact => <ArtCard key={artifact.id} artifact={artifact} />)}
             </Card.Group>
         )
     }

@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import Container from './components/Container'
+import BodyContainer from './components/BodyContainer'
+import Nav from './components/Nav'
 
 function App() {
   return (
     <div>
-    <Container />
+      <Nav />
+      <BodyContainer />
     </div>
   );
 }

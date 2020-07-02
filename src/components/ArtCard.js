@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
 
-export default class ItemCard extends Component {
+export default class ArtCard extends Component {
     render() {
         return (
             <Card>
-                <div className="ui floated small image">
-                    <img src={this.props.artifact.image_url} />
-                </div> 
+                    <Image src={this.props.artifact.image_url} wrapped size='small'/>
                 <Card.Content>
                     <Card.Header>{this.props.artifact.title}</Card.Header>
                     <Card.Meta>

@@ -12,7 +12,7 @@ export default class ArtCard extends Component {
                         <span className='date'>{this.props.artifact.century}</span>
                     </Card.Meta>
                     <Card.Description>
-                        {this.props.artifact.description}
+                        {this.props.artifact.description ? this.props.artifact.description.substring(0, 25)+'...' : null}
                     </Card.Description>
                 </Card.Content>
                 <Card.Content extra>

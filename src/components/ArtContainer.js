@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ArtCard from './ArtCard'
-import { Card } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 export default class ArtContainer extends Component {
 
@@ -9,12 +9,12 @@ export default class ArtContainer extends Component {
             (art) => art.title.toLowerCase().includes(this.props.searchField.toLowerCase())
         )
         return (
-
-            <Card.Group>
+            <div>
+            <Grid columns={3} relaxed divided>
                 {filteredArt.map(artifact => 
-                <ArtCard key={artifact.id} artifact={artifact} />)}
-            </Card.Group>
-          
+                <Grid.Column><ArtCard key={artifact.id} artifact={artifact} /></Grid.Column>)}
+            </Grid>
+            </div>
         )
     }
 }

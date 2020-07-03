@@ -12,7 +12,6 @@ export default class Nav extends Component {
     render() {
         const { activeItem } = this.state
         return (
-
             <Menu stackable>
                 <Menu.Item>
                     <img src={logo} />

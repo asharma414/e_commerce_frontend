@@ -33,9 +33,9 @@ export default class App extends Component {
           <SideBar />
           </Grid.Column>
           <Switch>
-            <Route exact path='/artifacts' render={() =>             
+            <Route exact path='/artifacts' render={(props) =>             
             <Grid.Column>
-              <ArtContainer style={{width: '75%'}} artifacts={this.state.artifacts} searchField={this.state.searchField} />
+              <ArtContainer style={{width: '75%'}} history={props.history} artifacts={this.state.artifacts} searchField={this.state.searchField} />
             </Grid.Column>} />
             <Route exact path='/artifacts/:id' render={(props) => <ArtDetail style={{width: '75%'}} id={props.match.params.id} />}/>
           </Switch>

@@ -4,7 +4,7 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 export default class ArtCard extends Component {
     render() {
         return (
-            <Card>
+            <Card onClick={() => this.props.history.push(`/artifacts/${this.props.artifact.id}`)}>
                 <Image src={this.props.artifact.image_url} wrapped size='small' />
                 <Card.Content>
                     <Card.Header>{this.props.artifact.title}</Card.Header>

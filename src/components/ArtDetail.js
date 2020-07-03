@@ -13,7 +13,14 @@ export default class ArtDetail extends Component {
             .then(data => this.setState({ artifact: data }))
     }
 
+    handleBid = () =>
+    this.setState((prevState) => ({ active: !prevState.active }))
+
+    handleBuy = () =>
+    this.setState((prevState) => ({ active: !prevState.active }))
+
     render() {
+        const { active } = this.state
         return (
             <div>
                 <Container fluid>
@@ -22,60 +29,61 @@ export default class ArtDetail extends Component {
                             <Item.Image src={this.state.artifact.image_url} size='medium' bordered />
 
                             <Item.Content>
-                                <h4>${this.state.artifact.list_price}</h4>
+                                <h3>${this.state.artifact.list_price}</h3>
                                 <Item.Meta>
                                     <span className='cinema'></span>
                                 </Item.Meta>
                                 <Item.Description></Item.Description>
                                 <Item.Extra>
-                                    
+
 
                                     {/* <Label></Label> */}
 
                                     <List>
-                                    <List.Item >
-                                        <Icon name='right triangle' />
-                                        <List.Content>
-                                            {/* <List.Header></List.Header>  */}
-                                            <List.Description>
-                                                {this.state.artifact.dated}
+                                        <List.Item >
+                                            <Icon name='right triangle' />
+                                            <List.Content>
+                                                {/* <List.Header></List.Header>  */}
+                                                <List.Description>
+                                                    {this.state.artifact.dated}
 
-                                            </List.Description>
-                                        </List.Content>
-                                    </List.Item>
-                                    <List.Item >
-                                        <Icon name='right triangle' />
-                                        <List.Content>
-                                            {/* <List.Header></List.Header> */}
-                                            <List.Description>
-                                                {this.state.artifact.culture}
+                                                </List.Description>
+                                            </List.Content>
+                                        </List.Item>
+                                        <List.Item >
+                                            <Icon name='right triangle' />
+                                            <List.Content>
+                                                {/* <List.Header></List.Header> */}
+                                                <List.Description>
+                                                    {this.state.artifact.culture}
 
-                                            </List.Description>
-                                        </List.Content>
-                                    </List.Item>
-                                    <List.Item >
-                                        <Icon name='right triangle' />
-                                        <List.Content>
-                                            {/* <List.Header></List.Header> */}
-                                            <List.Description>
-                                                {this.state.artifact.medium}
+                                                </List.Description>
+                                            </List.Content>
+                                        </List.Item>
+                                        <List.Item >
+                                            <Icon name='right triangle' />
+                                            <List.Content>
+                                                {/* <List.Header></List.Header> */}
+                                                <List.Description>
+                                                    {this.state.artifact.medium}
 
-                                            </List.Description>
-                                        </List.Content>
-                                    </List.Item>
+                                                </List.Description>
+                                            </List.Content>
+                                        </List.Item>
                                     </List>
                                     <div>
-                                    <Button  primary floated='right'>
-                                        Buy
-                            <Icon name='right chevron' />
-                                    </Button>
-                                   <br/>
-                                   <br />
-                                    <Button  primary floated='right'>
-                                        Bid 
-                            <Icon name='right chevron' />
-                                    </Button>
-                                  </div>
+                                        <Button.Group floated='right'>
+                                            <Button 
+                                            basic color = 'yellow'
+                                            toggle active={active} onClick={this.handleBid}
+                                            >Bid</Button>
+                                            <Button.Or/>
+                                            <Button 
+                                            basic color = 'grey'
+                                            toggle active={active} onClick={this.handleBuy}
+                                            >Buy</Button>
+                                        </Button.Group>
+                                    </div>
                                 </Item.Extra>
                             </Item.Content>
                         </Item>

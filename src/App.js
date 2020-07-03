@@ -30,7 +30,7 @@ export default class App extends Component {
       <Router>
         <Grid style ={{'margin-top': '10px'}} columns={2}>
           <Grid.Column style={{width: '25%'}}>
-          <SideBar />
+          <SideBar handleChange={this.changeSearchField}/>
           </Grid.Column>
           <Switch>
             <Route exact path='/artifacts' render={(props) =>             

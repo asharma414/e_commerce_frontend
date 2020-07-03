@@ -28,7 +28,7 @@ export default class App extends Component {
 
     return (
       <Router>
-        <Grid columns={2}>
+        <Grid style ={{'margin-top': '10px'}} columns={2}>
           <Grid.Column style={{width: '25%'}}>
           <SideBar />
           </Grid.Column>
@@ -37,7 +37,7 @@ export default class App extends Component {
             <Grid.Column>
               <ArtContainer style={{width: '75%'}} history={props.history} artifacts={this.state.artifacts} searchField={this.state.searchField} />
             </Grid.Column>} />
-            <Route exact path='/artifacts/:id' render={(props) => <ArtDetail style={{width: '75%'}} id={props.match.params.id} />}/>
+            <Route exact path='/artifacts/:id' render={(props) => <Grid.Column><ArtDetail style={{width: '75%'}} id={props.match.params.id} /></Grid.Column>}/>
           </Switch>
         </Grid>
       </Router>
@@ -45,3 +45,11 @@ export default class App extends Component {
   }
 }
 
+
+// $('.autumn.leaf')
+//   .transition('slide left')
+// ;
+
+// $('.autumn.leaf')
+//   .transition('slide right')
+// ;

@@ -76,7 +76,7 @@ export default class SideBar extends Component {
           Browse
         </Menu.Item>
 
-        <Accordion style ={{'margin-left': '10px'}} vertical>
+        <Accordion style ={{marginLeft: '10px'}} vertical>
           <Accordion.Title
             active={activeIndex === 1}
             content='Filter By'

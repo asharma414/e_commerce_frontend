@@ -5,7 +5,7 @@ export default class ArtCard extends Component {
     render() {
         return (
             <Card onClick={() => this.props.history.push(`/artifacts/${this.props.artifact.id}`)}>
-                <Image src={this.props.artifact.image_url} wrapped size='small' />
+                <Image src={this.props.artifact.primary_image} wrapped size='small' />
                 <Card.Content>
                     <Card.Header>{this.props.artifact.title}</Card.Header>
                     <Card.Meta>

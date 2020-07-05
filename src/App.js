@@ -7,6 +7,7 @@ import { Grid } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
+
 export default class App extends Component {
 
   state = {
@@ -28,7 +29,7 @@ export default class App extends Component {
 
     return (
       <Router>
-        <Grid style ={{'margin-top': '10px'}} columns={2}>
+        <Grid style ={{marginTop: '10px'}} columns={2}>
           <Grid.Column style={{width: '25%'}}>
           <SideBar handleChange={this.changeSearchField}/>
           </Grid.Column>

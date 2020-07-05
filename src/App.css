@@ -22,3 +22,9 @@
 .App-link {
   color: #61dafb;
 }
+
+
+.carousel-item img {
+  width: auto;
+  max-height: 640px;
+}

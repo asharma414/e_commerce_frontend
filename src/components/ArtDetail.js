@@ -54,6 +54,7 @@ export default class ArtDetail extends Component {
                         <Col>
                             <ListGroup variant="flush">
                                 <ListGroup.Item>${parseFloat(this.state.artifact.list_price).toFixed(2)}</ListGroup.Item>
+                    
                                 <ListGroup.Item>{this.state.artifact.century}</ListGroup.Item>
                                 <ListGroup.Item>{this.state.artifact.technique}</ListGroup.Item>
                                 <ListGroup.Item>{this.state.artifact.dimensions}</ListGroup.Item>
@@ -65,10 +66,14 @@ export default class ArtDetail extends Component {
                         </Col>
                     </Row>
                     <Row>
+                    
                     <h3>{this.state.artifact.title}</h3>
+                    </Row>
+                    <Row>
                     <p>{this.state.artifact.verification}</p>
                         <p>{this.state.artifact.provenance}</p>
                         <p>{this.state.artifact.description}</p>
+                      
                 </Row>
                 </Jumbotron>
             </div>

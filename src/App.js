@@ -25,13 +25,24 @@ export default class App extends Component {
     this.setState({ searchField: e.target.value })
   }
 
-  render() {
+  filterPrice = (e) => {
+    console.log(e.target.value)
+    let price = this.state.artifacts.filter(artifact => artifact.list_price >= e.target.value.split('-')[0] && 
+    artifact.list_price <= e.target.value.split('-')[1])
+    
+  }
 
+  render() {
+  
     return (
+      
       <Router>
         <Grid style ={{marginTop: '10px'}} columns={2}>
           <Grid.Column style={{width: '25%'}}>
-          <SideBar handleChange={this.changeSearchField}/>
+          <SideBar 
+          handleChange={this.changeSearchField}
+          handlePrice={this.filterPrice}
+          />
           </Grid.Column>
           <Switch>
             <Route exact path='/artifacts' render={(props) =>             

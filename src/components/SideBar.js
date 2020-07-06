@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dropdown, Icon, Input, Menu, Accordion, Form } from 'semantic-ui-react'
+import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
 
 // const FilterbyPrice = (
@@ -16,15 +16,13 @@ import logo from '../images/e-licit.png'
 export default class SideBar extends Component {
   state = { 
     activeIndex: 0,
-    checked: false
+    value: '10000-10000000'
   }
 
-handleCheckClick = (e) => {
-  debugger
-  this.setState({ checked: !this.state.checked });
-  this.props.handlePrice(e)
-  console.log(e.currentTarget.value)
-}
+  handleChange = (e, { value }) => {
+    this.props.handlePrice(value)
+    this.setState({ value })
+  }
 
   handleDropdown = (e, titleProps) => {
     const { index } = titleProps
@@ -94,27 +92,60 @@ handleCheckClick = (e) => {
             onClick={this.handleDropdown} />
           <Accordion.Content active={activeIndex === 1} content=
             {<Form>
-              <Form.Group grouped >
-                <div className = 'field'>
-                <div className = 'ui checkbox'>
-                  <input 
-                  className = 'hidden' 
-                  name='$10K - $500K' readOnly
-                  tabindex='0'
-                  type='checkbox'
-                  value='10000-500000'
-                  checked={this.state.checked}
-                  onChange={this.handleCheckClick}
-                 />
-                 <label>$10K - $500K</label>
-                </div>
-                </div>
-                
-              </Form.Group>
-            </Form>}
+          <Form.Field>
+          <Radio
+            label='All'
+            name='radioGroup'
+            value='10000-10000000'
+            checked={this.state.value === '10000-10000000'}
+            onChange={this.handleChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='$10K - $500K'
+            name='radioGroup'
+            value='10000-500000'
+            checked={this.state.value === '10000-500000'}
+            onChange={this.handleChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='$500K - $1M'
+            name='radioGroup'
+            value='500000-1000000'
+            checked={this.state.value === '500000-1000000'}
+            onChange={this.handleChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='$1M - $5M'
+            name='radioGroup'
+            value='1000000-5000000'
+            checked={this.state.value === '1000000-5000000'}
+            onChange={this.handleChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Radio
+            label='$5M - $10M'
+            name='radioGroup'
+            value='5000000-10000000'
+            checked={this.state.value === '5000000-10000000'}
+            onChange={this.handleChange}
+          />
+        </Form.Field>
+      </Form>}
           />
         </Accordion>
 
+
+ 
+
+
+      
         {/* <Accordion style={{ marginLeft: '10px' }} vertical>
           <Accordion.Title
             active={activeIndex === 1}
@@ -139,7 +170,7 @@ handleCheckClick = (e) => {
           onClick={this.handleItemClick}>
           Logout
           </Menu.Item> */}
-      </Menu >
+      </Menu>
     )
   }
 }

@@ -26,13 +26,9 @@ export default class App extends Component {
     this.setState({ searchField: e.target.value })
   }
 
-  filterPrice = (e) => {
-    debugger
-    // console.log(e.currentTarget.innerText.replace(/K/g, "000").replace(/M/g, "000000"))
-    let filteredArr = this.state.artifacts.filter(artifact => artifact.list_price >= e.currentTarget.innerText.replace(/K/g, "000").replace(/M/g, "000000").split(' - ')[0] && 
-    artifact.list_price <= e.currentTarget.innerText.replace(/K/g, "000").replace(/M/g, "000000").split(' - ')[1])
-    this.setState({filteredArtifacts: filteredArr})
-    
+  filterPrice = (value) => {
+      let filteredArr = this.state.artifacts.filter(artifact => parseFloat(artifact.list_price) >= parseFloat(value.split('-')[0]) && parseFloat(artifact.list_price) <= parseFloat(value.split('-')[1]))
+      this.setState({filteredArtifacts: filteredArr})
   }
 
   render() {

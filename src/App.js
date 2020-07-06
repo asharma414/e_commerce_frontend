@@ -80,14 +80,16 @@ export default class App extends Component {
       <Router>
         <Grid style={{marginTop: '10px', marginRight: '-500px'}} columns={2}>
           <Grid.Column style={{width: '15%'}}>
-          <SideBar
+            <Route path='/' render={(props) => 
+        <SideBar
           categories={this.state.categories} 
           handleChange={this.changeSearchField}
           handlePrice={this.setPriceFilter}
           handleCategories={this.categoryFilter}
           checked={this.state.checked}
           toggleCategory={this.toggleCategory}
-          />
+          history={props.history}
+          />}/>
           </Grid.Column>
           <Switch>
             <Route exact path='/artifacts' render={(props) =>             

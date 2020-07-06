@@ -31,14 +31,13 @@ export default class SideBar extends Component {
     
 
   render() {
-
     const { activeIndexes } = this.state;
-
 
     return (
     
       <Menu className='ui vertical menu' id='left-column'>
-        <Menu.Item >
+        <Menu.Item onClick={() => this.props.history.push('/artifacts')}>
+          
           <img src={logo} />
         </Menu.Item>
 

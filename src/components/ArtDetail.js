@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Carousel, Jumbotron, Row, Col, ListGroup, Button } from 'react-bootstrap'
+import {Image} from 'semantic-ui-react'
 
 export default class ArtDetail extends Component {
 
@@ -39,7 +40,8 @@ export default class ArtDetail extends Component {
                 <Jumbotron>
                     <Row>
                         <Col>
-                            <Carousel>
+                            {this.state.images.length > 1 ?
+                                <Carousel>
                                 {this.state.images.map(image =>
                                     <Carousel.Item>
                                         <img
@@ -50,14 +52,24 @@ export default class ArtDetail extends Component {
                                     </Carousel.Item>
                                 )}
                             </Carousel>
+                            :
+                            <Image src = {this.state.images[0]}/>
+                            }
                         </Col>
                         <Col>
                             <ListGroup variant="flush">
+                                
                                 <ListGroup.Item>${parseFloat(this.state.artifact.list_price).toFixed(2)}</ListGroup.Item>
                     
-                                <ListGroup.Item>{this.state.artifact.century}</ListGroup.Item>
-                                <ListGroup.Item>{this.state.artifact.technique}</ListGroup.Item>
+                                {this.state.artifact.century ? 
+                                <ListGroup.Item>{this.state.artifact.century}</ListGroup.Item> 
+                                : null}
+                                {this.state.artifact.technique ? 
+                                <ListGroup.Item>{this.state.artifact.technique}</ListGroup.Item> 
+                                : null}
+                                {this.state.artifact.dimensions ? 
                                 <ListGroup.Item>{this.state.artifact.dimensions}</ListGroup.Item>
+                                : null}
                         
                             </ListGroup>
                             <ListGroup horizontal>

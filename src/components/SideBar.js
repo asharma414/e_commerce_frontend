@@ -1,20 +1,30 @@
 import React, { Component } from 'react'
 import { Dropdown, Icon, Input, Menu, Accordion, Form } from 'semantic-ui-react'
-// import logo from '../images/e-licit.png'
+import logo from '../images/e-licit.png'
 
-const FilterbyPrice = (
-  <Form >
-    <Form.Group grouped>
-      <Form.Checkbox label='$10K - $500K' name='$10K - $500K' value='10000-500000' />
-      <Form.Checkbox label='$500K - $1M' name='$500K - $1M' value='500000-1000000' />
-      <Form.Checkbox label='$1M - $5M' name='$1M - $5M' value='1000000-5000000' />
-      <Form.Checkbox label='$5M - $10M' name='$5M - $10M' value='5000000-10000000' />
-    </Form.Group>
-  </Form>
-)
+// const FilterbyPrice = (
+//   <Form >
+//     <Form.Group grouped>
+//       <Form.Checkbox label='$10K - $500K' name='$10K - $500K' value='10000-500000' />
+//       <Form.Checkbox label='$500K - $1M' name='$500K - $1M' value='500000-1000000' />
+//       <Form.Checkbox label='$1M - $5M' name='$1M - $5M' value='1000000-5000000' />
+//       <Form.Checkbox label='$5M - $10M' name='$5M - $10M' value='5000000-10000000' />
+//     </Form.Group>
+//   </Form>
+// )
 
 export default class SideBar extends Component {
-  state = { activeIndex: 0 }
+  state = { 
+    activeIndex: 0,
+    checked: false
+  }
+
+handleCheckClick = (e) => {
+  debugger
+  this.setState({ checked: !this.state.checked });
+  this.props.handlePrice(e)
+  console.log(e.currentTarget.value)
+}
 
   handleDropdown = (e, titleProps) => {
     const { index } = titleProps
@@ -32,7 +42,7 @@ export default class SideBar extends Component {
     return (
       <Menu className='ui left fixed vertical menu'>
         <Menu.Item >
-          {/* <img src={logo} /> */}
+          <img src={logo} />
         </Menu.Item>
 
         <Menu.Item>
@@ -76,7 +86,7 @@ export default class SideBar extends Component {
           Browse
         </Menu.Item>
 
-        <Accordion style={{ marginLeft: '10px' }} vertical>
+        <Accordion style={{ marginLeft: '10px' }}>
           <Accordion.Title
             active={activeIndex === 1}
             content='Price'
@@ -84,17 +94,28 @@ export default class SideBar extends Component {
             onClick={this.handleDropdown} />
           <Accordion.Content active={activeIndex === 1} content=
             {<Form>
-              <Form.Group grouped>
-                <Form.Checkbox onChange={this.props.handlePrice} label='$10K - $500K' name='$10K - $500K' value='10000-500000' />
-                <Form.Checkbox label='$500K - $1M' name='$500K - $1M' value='500000-1000000' />
-                <Form.Checkbox label='$1M - $5M' name='$1M - $5M' value='1000000-5000000' />
-                <Form.Checkbox label='$5M - $10M' name='$5M - $10M' value='5000000-10000000' />
+              <Form.Group grouped >
+                <div className = 'field'>
+                <div className = 'ui checkbox'>
+                  <input 
+                  className = 'hidden' 
+                  name='$10K - $500K' readOnly
+                  tabindex='0'
+                  type='checkbox'
+                  value='10000-500000'
+                  checked={this.state.checked}
+                  onChange={this.handleCheckClick}
+                 />
+                 <label>$10K - $500K</label>
+                </div>
+                </div>
+                
               </Form.Group>
             </Form>}
           />
         </Accordion>
 
-        <Accordion style={{ marginLeft: '10px' }} vertical>
+        {/* <Accordion style={{ marginLeft: '10px' }} vertical>
           <Accordion.Title
             active={activeIndex === 1}
             content='Century'
@@ -110,7 +131,7 @@ export default class SideBar extends Component {
             index={1}
             onClick={this.handleDropdown} />
           <Accordion.Content active={activeIndex === 1} content={FilterbyPrice} />
-        </Accordion>
+        </Accordion> */}
 
         {/* <Menu.Item
           name='logout'

@@ -58,6 +58,7 @@ export default class ArtDetail extends Component {
                                 <ListGroup.Item>{this.state.artifact.century}</ListGroup.Item>
                                 <ListGroup.Item>{this.state.artifact.technique}</ListGroup.Item>
                                 <ListGroup.Item>{this.state.artifact.dimensions}</ListGroup.Item>
+                        
                             </ListGroup>
                             <ListGroup horizontal>
                                 <Button variant='primary'>Buy</Button>
@@ -70,7 +71,7 @@ export default class ArtDetail extends Component {
                     <h3>{this.state.artifact.title}</h3>
                     </Row>
                     <Row>
-                    <p>{this.state.artifact.verification}</p>
+                    <p>Verification: {this.state.artifact.verification}</p>
                         <p>{this.state.artifact.provenance}</p>
                         <p>{this.state.artifact.description}</p>
                       

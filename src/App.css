@@ -29,7 +29,16 @@
   max-height: 640px;
 }
 
-.sidebar {
-  height: 100vh;
-  overflow: auto;
+#left-column {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#left-column::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }

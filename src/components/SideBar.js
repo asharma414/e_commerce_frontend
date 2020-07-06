@@ -38,8 +38,8 @@ export default class SideBar extends Component {
     const { activeItem, activeIndex } = this.state
 
     return (
-      <div class='sidebar'>
-      <Menu className='ui fixed vertical menu'>
+    
+      <Menu className='ui vertical menu' id='left-column'>
         <Menu.Item >
           <img src={logo} />
         </Menu.Item>
@@ -85,7 +85,7 @@ export default class SideBar extends Component {
           Browse
         </Menu.Item>
 
-        <Accordion style={{ marginLeft: '10px' }}>
+        <Accordion style={{ marginLeft: '10px' } } >
           <Accordion.Title
             active={activeIndex === 1}
             content='Price'
@@ -141,7 +141,7 @@ export default class SideBar extends Component {
       </Form>}
           />
         </Accordion>
-        <Accordion style={{ marginLeft: '10px' }}>
+        <Accordion style={{ marginLeft: '10px' }} >
           <Accordion.Title
             active={activeIndex === 2}
             content='Category'
@@ -163,7 +163,7 @@ export default class SideBar extends Component {
           />
         </Accordion>
       </Menu>
-      </div>
+    
     )
   }
 }

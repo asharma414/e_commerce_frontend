@@ -1,17 +1,7 @@
 import React, { Component } from 'react'
-import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio } from 'semantic-ui-react'
+import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
 
-// const FilterbyPrice = (
-//   <Form >
-//     <Form.Group grouped>
-//       <Form.Checkbox label='$10K - $500K' name='$10K - $500K' value='10000-500000' />
-//       <Form.Checkbox label='$500K - $1M' name='$500K - $1M' value='500000-1000000' />
-//       <Form.Checkbox label='$1M - $5M' name='$1M - $5M' value='1000000-5000000' />
-//       <Form.Checkbox label='$5M - $10M' name='$5M - $10M' value='5000000-10000000' />
-//     </Form.Group>
-//   </Form>
-// )
 
 export default class SideBar extends Component {
   state = { 
@@ -24,11 +14,25 @@ export default class SideBar extends Component {
     this.setState({ value })
   }
 
+  toggle = (e) => {
+    let array = Object.entries(this.state.categories).map(category => category[0] === e.target.innerText ? [category[0], true] : [category[0], false])
+    this.setState({categories: Object.fromEntries(array)})
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.categories.length > 0) {
+      let categories = {}
+      props.categories.map(category => categories[`${category.name}`] = false)
+      return {categories: categories}
+    }
+  }
+
+
+
   handleDropdown = (e, titleProps) => {
     const { index } = titleProps
     const { activeIndex } = this.state
     const newIndex = activeIndex === index ? -1 : index
-
     this.setState({ activeIndex: newIndex })
   }
 
@@ -38,7 +42,8 @@ export default class SideBar extends Component {
     const { activeItem, activeIndex } = this.state
 
     return (
-      <Menu className='ui left fixed vertical menu'>
+      <div class='sidebar'>
+      <Menu className='ui fixed vertical menu'>
         <Menu.Item >
           <img src={logo} />
         </Menu.Item>
@@ -140,37 +145,25 @@ export default class SideBar extends Component {
       </Form>}
           />
         </Accordion>
-
-
- 
-
-
-      
-        {/* <Accordion style={{ marginLeft: '10px' }} vertical>
+        <Accordion style={{ marginLeft: '10px' }}>
           <Accordion.Title
-            active={activeIndex === 1}
-            content='Century'
-            index={1}
+            active={activeIndex === 2}
+            content='Category'
+            index={2}
             onClick={this.handleDropdown} />
-          <Accordion.Content active={activeIndex === 1} content={FilterbyPrice} />
+          <Accordion.Content active={activeIndex === 2} content=
+            {<Form>
+         {this.props.categories.map(category => {
+         return <Form.Field key={'cat' + category.id}>
+            <Checkbox label={category.name} checked={this.state.categories[`${category.name}`]} onChange={this.toggle} />
+          </Form.Field>
+         }
+         )}
+      </Form>}
+          />
         </Accordion>
-
-        <Accordion style={{ marginLeft: '10px' }} vertical>
-          <Accordion.Title
-            active={activeIndex === 1}
-            content='Material'
-            index={1}
-            onClick={this.handleDropdown} />
-          <Accordion.Content active={activeIndex === 1} content={FilterbyPrice} />
-        </Accordion> */}
-
-        {/* <Menu.Item
-          name='logout'
-          active={activeItem === 'logout'}
-          onClick={this.handleItemClick}>
-          Logout
-          </Menu.Item> */}
       </Menu>
+      </div>
     )
   }
 }

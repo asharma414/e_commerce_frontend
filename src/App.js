@@ -13,13 +13,20 @@ export default class App extends Component {
   state = {
     artifacts: [],
     searchField: '',
+    categories: [],
     filteredArtifacts: []
   }
 
   componentDidMount() {
+
     fetch('http://localhost:3000/artifacts')
       .then(res => res.json())
-      .then(data => this.setState({artifacts: data, filteredArtifacts: data}))
+      .then(artifacts => {
+        fetch('http://localhost:3000/categories')
+          .then(r => r.json())
+          .then(categories => this.setState({artifacts: artifacts, filteredArtifacts: artifacts, categories: categories}))
+      }
+      )
   }
 
   changeSearchField = (e) => {
@@ -36,9 +43,10 @@ export default class App extends Component {
     return (
       
       <Router>
-        <Grid style ={{marginTop: '10px'}} columns={2}>
-          <Grid.Column style={{width: '25%'}}>
-          <SideBar 
+        <Grid style={{marginTop: '10px', marginRight: '-500px'}} columns={2}>
+          <Grid.Column style={{width: '15%'}}>
+          <SideBar
+          categories={this.state.categories} 
           handleChange={this.changeSearchField}
           handlePrice={this.filterPrice}
           />
@@ -46,7 +54,7 @@ export default class App extends Component {
           <Switch>
             <Route exact path='/artifacts' render={(props) =>             
             <Grid.Column>
-              <ArtContainer style={{width: '75%'}} history={props.history} artifacts={this.state.filteredArtifacts} searchField={this.state.searchField} />
+              <ArtContainer style={{width: '85%'}} history={props.history} artifacts={this.state.filteredArtifacts} searchField={this.state.searchField} />
             </Grid.Column>} />
             <Route exact path='/artifacts/:id' render={(props) => <Grid.Column><ArtDetail style={{width: '75%'}} id={props.match.params.id} /></Grid.Column>}/>
           </Switch>
@@ -55,12 +63,3 @@ export default class App extends Component {
     );
   }
 }
-
-
-// $('.autumn.leaf')
-//   .transition('slide left')
-// ;
-
-// $('.autumn.leaf')
-//   .transition('slide right')
-// ;

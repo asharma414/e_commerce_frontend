@@ -28,3 +28,8 @@
   width: auto;
   max-height: 640px;
 }
+
+.sidebar {
+  height: 100vh;
+  overflow: auto;
+}

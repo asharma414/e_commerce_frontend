@@ -10,7 +10,7 @@ export default class ArtContainer extends Component {
         )
         return (
             <div>
-            <Grid columns={3} relaxed divided>
+            <Grid columns={4} relaxed style={{paddingRight: 0}}>
                 {filteredArt.map(artifact => 
                 <Grid.Column><ArtCard history={this.props.history} key={artifact.id} artifact={artifact} /></Grid.Column>)}
             </Grid>

@@ -14,11 +14,15 @@ export default class App extends Component {
     artifacts: [],
     searchField: '',
     categories: [],
-    filteredArtifacts: []
+    filteredArtifacts: [],
+    filteredCategories: []
+  }
+
+  categoryFilter = (cat) => {
+    console.log(cat)
   }
 
   componentDidMount() {
-
     fetch('http://localhost:3000/artifacts')
       .then(res => res.json())
       .then(artifacts => {
@@ -49,6 +53,7 @@ export default class App extends Component {
           categories={this.state.categories} 
           handleChange={this.changeSearchField}
           handlePrice={this.filterPrice}
+          handleCategories={this.categoryFilter}
           />
           </Grid.Column>
           <Switch>

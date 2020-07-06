@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
+import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio } from 'semantic-ui-react'
+import Checkbox from './Checkbox'
 import logo from '../images/e-licit.png'
 
 
@@ -14,18 +15,19 @@ export default class SideBar extends Component {
     this.setState({ value })
   }
 
-  toggle = (e) => {
-    let array = Object.entries(this.state.categories).map(category => category[0] === e.target.innerText ? [category[0], true] : [category[0], false])
-    this.setState({categories: Object.fromEntries(array)})
-  }
+  // toggle = (e) => {
+  //   let array = Object.entries(this.state.categories).map(category => category[0] === e.target.innerText ? [category[0], true] : [category[0], category[1]])
+  //   console.log(Object.fromEntries(array))
+  //   this.setState({categories: Object.fromEntries(array)})
+  // }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.categories.length > 0) {
-      let categories = {}
-      props.categories.map(category => categories[`${category.name}`] = false)
-      return {categories: categories}
-    }
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.categories.length > 0) {
+  //     let categories = {}
+  //     props.categories.map(category => categories[`${category.name}`] = false)
+  //     return {categories: categories}
+  //   }
+  // }
 
 
 
@@ -155,7 +157,7 @@ export default class SideBar extends Component {
             {<Form>
          {this.props.categories.map(category => {
          return <Form.Field key={'cat' + category.id}>
-            <Checkbox label={category.name} checked={this.state.categories[`${category.name}`]} onChange={this.toggle} />
+            <Checkbox handleCategories={this.props.handleCategories} category={category} />
           </Form.Field>
          }
          )}

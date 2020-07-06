@@ -15,13 +15,10 @@ export default class App extends Component {
     searchField: '',
     categories: [],
     filteredArtifacts: [],
-    filteredCategories: []
+    filteredCategories: ['Architectural Elements', 'Drawings']
   }
 
-  categoryFilter = (cat) => {
-    console.log(cat)
-  }
-
+  
   componentDidMount() {
     fetch('http://localhost:3000/artifacts')
       .then(res => res.json())
@@ -31,6 +28,16 @@ export default class App extends Component {
           .then(categories => this.setState({artifacts: artifacts, filteredArtifacts: artifacts, categories: categories}))
       }
       )
+  }
+
+  categoryFilter = (category) => {
+    let params = '?'
+    this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
+    fetch(`http://localhost:3000/artifacts/category${params}`)
+    .then(res => res.json())
+    .then(data => console.log(data))
+    
+   
   }
 
   changeSearchField = (e) => {

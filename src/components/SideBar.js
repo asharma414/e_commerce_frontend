@@ -15,11 +15,6 @@ export default class SideBar extends Component {
     this.setState({ value })
   }
 
-  // toggle = (e) => {
-  //   let array = Object.entries(this.state.categories).map(category => category[0] === e.target.innerText ? [category[0], true] : [category[0], category[1]])
-  //   console.log(Object.fromEntries(array))
-  //   this.setState({categories: Object.fromEntries(array)})
-  // }
 
   // static getDerivedStateFromProps(props, state) {
   //   if (props.categories.length > 0) {
@@ -157,7 +152,7 @@ export default class SideBar extends Component {
             {<Form>
          {this.props.categories.map(category => {
          return <Form.Field key={'cat' + category.id}>
-            <Checkbox handleCategories={this.props.handleCategories} category={category} />
+            <Checkbox handleCategories={this.props.handleCategories} category={category} checked={this.props.checked} toggleCategory={this.props.toggleCategory} />
           </Form.Field>
          }
          )}

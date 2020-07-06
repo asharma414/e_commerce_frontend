@@ -15,20 +15,28 @@ export default class App extends Component {
     searchField: '',
     categories: [],
     filteredArtifacts: [],
-    filteredCategories: ['Architectural Elements', 'Drawings']
+    filteredCategories: [],
+    checked: {}
   }
 
   
   componentDidMount() {
+
     fetch('http://localhost:3000/artifacts')
       .then(res => res.json())
       .then(artifacts => {
         fetch('http://localhost:3000/categories')
           .then(r => r.json())
-          .then(categories => this.setState({artifacts: artifacts, filteredArtifacts: artifacts, categories: categories}))
+          .then(categories => {
+            let cat_boolean = {}
+            categories.map(category => cat_boolean[`${category.name}`] = false)
+            this.setState({artifacts: artifacts, filteredArtifacts: artifacts, categories: categories, checked: cat_boolean})
+        })
       }
-      )
+    )
   }
+
+
 
   categoryFilter = (category) => {
     let params = '?'
@@ -36,8 +44,13 @@ export default class App extends Component {
     fetch(`http://localhost:3000/artifacts/category${params}`)
     .then(res => res.json())
     .then(data => console.log(data))
-    
-   
+     
+  }
+
+  toggleCategory = (e) => {
+    let array = Object.entries(this.state.checked).map(category => category[0] === e.target.innerText ? [category[0], true] : [category[0], category[1]])
+    // console.log(Object.fromEntries(array))
+    this.setState({checked: Object.fromEntries(array)})
   }
 
   changeSearchField = (e) => {
@@ -61,6 +74,8 @@ export default class App extends Component {
           handleChange={this.changeSearchField}
           handlePrice={this.filterPrice}
           handleCategories={this.categoryFilter}
+          checked={this.state.checked}
+          toggleCategory={this.toggleCategory}
           />
           </Grid.Column>
           <Switch>

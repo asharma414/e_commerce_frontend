@@ -14,15 +14,16 @@ export default class App extends Component {
     artifacts: [],
     searchField: '',
     categories: [],
-    filteredArtifacts: [],
     filteredCategories: [],
+    priceFilter: '10000-10000000',
     checked: {}
   }
 
   
   componentDidMount() {
-
-    fetch('http://localhost:3000/artifacts')
+    let params = '?'
+    this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
+    fetch(`http://localhost:3000/artifacts${params}`)
       .then(res => res.json())
       .then(artifacts => {
         fetch('http://localhost:3000/categories')
@@ -30,7 +31,8 @@ export default class App extends Component {
           .then(categories => {
             let cat_boolean = {}
             categories.map(category => cat_boolean[`${category.name}`] = false)
-            this.setState({artifacts: artifacts, filteredArtifacts: artifacts, categories: categories, checked: cat_boolean})
+            let catArr = categories.map(category => category.name)
+            this.setState({artifacts: artifacts, categories: categories, checked: cat_boolean})
         })
       }
     )
@@ -38,28 +40,37 @@ export default class App extends Component {
 
 
 
-  categoryFilter = (category) => {
+  categoryFilter = (arr) => {
     let params = '?'
-    this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
-    fetch(`http://localhost:3000/artifacts/category${params}`)
+    arr.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
+    fetch(`http://localhost:3000/artifacts${params}`)
     .then(res => res.json())
-    .then(data => console.log(data))
-     
+    .then(data => this.setState({artifacts: data}))
   }
 
   toggleCategory = (e) => {
-    let array = Object.entries(this.state.checked).map(category => category[0] === e.target.innerText ? [category[0], true] : [category[0], category[1]])
-    // console.log(Object.fromEntries(array))
-    this.setState({checked: Object.fromEntries(array)})
+    let categoryArr = []
+    let array = Object.entries(this.state.checked).map(category => category[0] === e.target.innerText ? [category[0], !category[1]] : [category[0], category[1]])
+    if (this.state.checked[`${e.target.innerText}`]) {
+      categoryArr = this.state.filteredCategories.filter(cat => cat != e.target.innerText)
+      this.setState({checked: Object.fromEntries(array), filteredCategories: categoryArr})
+    } else {
+      categoryArr = [...this.state.filteredCategories, e.target.innerText]
+      this.setState({checked: Object.fromEntries(array), filteredCategories: categoryArr})
+    }
+    this.categoryFilter(categoryArr)
   }
 
   changeSearchField = (e) => {
     this.setState({ searchField: e.target.value })
   }
 
-  filterPrice = (value) => {
-      let filteredArr = this.state.artifacts.filter(artifact => parseFloat(artifact.list_price) >= parseFloat(value.split('-')[0]) && parseFloat(artifact.list_price) <= parseFloat(value.split('-')[1]))
-      this.setState({filteredArtifacts: filteredArr})
+  setPriceFilter = (value) => {
+    this.setState({priceFilter: value})
+  }
+
+  filter = () => {
+        return this.state.artifacts.filter(artifact => parseFloat(artifact.list_price) >= parseFloat(this.state.priceFilter.split('-')[0]) && parseFloat(artifact.list_price) <= parseFloat(this.state.priceFilter.split('-')[1]))
   }
 
   render() {
@@ -72,7 +83,7 @@ export default class App extends Component {
           <SideBar
           categories={this.state.categories} 
           handleChange={this.changeSearchField}
-          handlePrice={this.filterPrice}
+          handlePrice={this.setPriceFilter}
           handleCategories={this.categoryFilter}
           checked={this.state.checked}
           toggleCategory={this.toggleCategory}
@@ -81,7 +92,7 @@ export default class App extends Component {
           <Switch>
             <Route exact path='/artifacts' render={(props) =>             
             <Grid.Column>
-              <ArtContainer style={{width: '85%'}} history={props.history} artifacts={this.state.filteredArtifacts} searchField={this.state.searchField} />
+              <ArtContainer style={{width: '85%'}} history={props.history} artifacts={this.filter()} searchField={this.state.searchField} />
             </Grid.Column>} />
             <Route exact path='/artifacts/:id' render={(props) => <Grid.Column><ArtDetail style={{width: '75%'}} id={props.match.params.id} /></Grid.Column>}/>
           </Switch>

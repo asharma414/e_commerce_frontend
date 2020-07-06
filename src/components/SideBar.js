@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio } from 'semantic-ui-react'
-import Checkbox from './Checkbox'
+import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
 
 
@@ -152,7 +151,11 @@ export default class SideBar extends Component {
             {<Form>
          {this.props.categories.map(category => {
          return <Form.Field key={'cat' + category.id}>
-            <Checkbox handleCategories={this.props.handleCategories} category={category} checked={this.props.checked} toggleCategory={this.props.toggleCategory} />
+            <Checkbox
+            label={category.name}
+            onChange={this.props.toggleCategory}
+            checked={this.props.checked[`${category.name}`]} 
+            />
           </Form.Field>
          }
          )}

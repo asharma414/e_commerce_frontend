@@ -5,7 +5,7 @@ import logo from '../images/e-licit.png'
 
 export default class SideBar extends Component {
   state = { 
-    activeIndex: 0,
+    activeIndexes: [],
     value: '10000-10000000'
   }
 
@@ -14,28 +14,26 @@ export default class SideBar extends Component {
     this.setState({ value })
   }
 
+  handleClick = (e, titleProps) => {
+    const { index } = titleProps;
+    const { activeIndexes } = this.state;
+    const newIndex = activeIndexes;
+    
+    const currentIndexPosition = activeIndexes.indexOf(index);
+    if (currentIndexPosition > -1) {
+      newIndex.splice(currentIndexPosition, 1);
+    } else {
+      newIndex.push(index);
+    }
 
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.categories.length > 0) {
-  //     let categories = {}
-  //     props.categories.map(category => categories[`${category.name}`] = false)
-  //     return {categories: categories}
-  //   }
-  // }
-
-
-
-  handleDropdown = (e, titleProps) => {
-    const { index } = titleProps
-    const { activeIndex } = this.state
-    const newIndex = activeIndex === index ? -1 : index
-    this.setState({ activeIndex: newIndex })
-  }
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    this.setState({ activeIndexes: newIndex });
+  };
+    
 
   render() {
-    const { activeItem, activeIndex } = this.state
+
+    const { activeIndexes } = this.state;
+
 
     return (
     
@@ -55,21 +53,21 @@ export default class SideBar extends Component {
           <Menu.Menu>
             <Menu.Item
               name='search'
-              active={activeItem === 'search'}
+              
               onClick={this.handleItemClick}
             >
               About
             </Menu.Item>
             <Menu.Item
               name='about'
-              active={activeItem === 'about'}
+           
               onClick={this.handleItemClick}
             >
               Profile
             </Menu.Item>
             <Menu.Item
               name='profile'
-              active={activeItem === 'profile'}
+              
               onClick={this.handleItemClick}
             >
               Favorites
@@ -79,7 +77,7 @@ export default class SideBar extends Component {
 
         <Menu.Item
           name='browse'
-          active={activeItem === 'browse'}
+        
           onClick={this.handleItemClick}>
           <Icon name='grid layout' />
           Browse
@@ -87,11 +85,13 @@ export default class SideBar extends Component {
 
         <Accordion style={{ marginLeft: '10px' } } >
           <Accordion.Title
-            active={activeIndex === 1}
+            active={activeIndexes.includes(0)}
             content='Price'
-            index={1}
-            onClick={this.handleDropdown} />
-          <Accordion.Content active={activeIndex === 1} content=
+            index={0}
+            onClick={this.handleClick} />
+          <Accordion.Content 
+          active={activeIndexes.includes(0)} 
+          content=
             {<Form>
           <Form.Field>
           <Radio
@@ -143,11 +143,11 @@ export default class SideBar extends Component {
         </Accordion>
         <Accordion style={{ marginLeft: '10px' }} >
           <Accordion.Title
-            active={activeIndex === 2}
+            active={activeIndexes.includes(1)}
             content='Category'
-            index={2}
-            onClick={this.handleDropdown} />
-          <Accordion.Content active={activeIndex === 2} content=
+            index={1}
+            onClick={this.handleClick} />
+          <Accordion.Content active={activeIndexes.includes(1)} content=
             {<Form>
          {this.props.categories.map(category => {
          return <Form.Field key={'cat' + category.id}>

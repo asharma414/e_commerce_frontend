@@ -10,3 +10,16 @@ E-licit Art
         |--CategoryFilter(c)
             |--CategoryForm (d)
     |--ArtShowPage (d)
+
+    Things to do:
+    - pagination
+    - login/auth (admin/user) --> route for '/'
+    - buying
+    - bidding
+    - cart (buttons for cart and logout)
+    - random browse or 
+
+    STRETCH
+    - data analytics (stretch)
+    - artist name?
+

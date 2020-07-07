@@ -85,7 +85,7 @@ export default class App extends Component {
     return (
 
       <Router>
-        <Grid style={{ marginTop: '10px', marginRight: '-600px' }} columns={2}>
+        <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
           <Grid.Column style={{ width: '15%' }}>
             <Route path='/' render={() =>
               <SideBar
@@ -101,12 +101,8 @@ export default class App extends Component {
             <Route exact path='/artifacts' render={() =>
               this.state.artifacts.length === 0 ?
                 <Grid.Column style={{ marginLeft: '50px' }}>
-                  <Segment>
-                    <Dimmer active inverted>
-                      <Loader size='large'>Loading</Loader>
-                    </Dimmer>
-                    <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                  </Segment>
+                    <Loader active inline='centered' />
+                    <div style={{textAlign: 'center'}}>Loading</div>
                 </Grid.Column>
                 :
                 <Grid.Column style={{ marginLeft: '50px' }}>

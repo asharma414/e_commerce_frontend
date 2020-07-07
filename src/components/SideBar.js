@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
+import { withRouter } from 'react-router-dom';
 
 
-export default class SideBar extends Component {
+class SideBar extends Component {
   state = { 
     activeIndexes: [],
     value: '10000-10000000'
@@ -166,3 +167,5 @@ export default class SideBar extends Component {
     )
   }
 }
+
+export default withRouter(SideBar)

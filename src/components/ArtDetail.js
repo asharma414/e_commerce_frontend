@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Carousel, Jumbotron, Row, Col, ListGroup, Button } from 'react-bootstrap'
-import {Image} from 'semantic-ui-react'
+import {Image, Segment, Dimmer, Loader} from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom';
 
-export default class ArtDetail extends Component {
+class ArtDetail extends Component {
 
     state = {
-        artifact: {},
         images: []
     }
 
@@ -35,6 +35,16 @@ export default class ArtDetail extends Component {
 
     render() {
         const { active } = this.state
+        if (!this.state.artifact) {
+            return (
+              <Segment>
+                <Dimmer active inverted>
+                  <Loader size='large'>Loading</Loader>
+                </Dimmer>
+                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+              </Segment>
+            )
+        } else {
         return (
             <div>
                 <Jumbotron>
@@ -72,8 +82,9 @@ export default class ArtDetail extends Component {
                                 : null}
                         
                             </ListGroup>
+                            <br />
                             <ListGroup horizontal>
-                                <Button variant='primary'>Buy</Button>
+                                <Button variant='primary'>Add To Cart</Button>
                                 <Button variant='primary'>Bid</Button>
                             </ListGroup>
                         </Col>
@@ -88,11 +99,13 @@ export default class ArtDetail extends Component {
                         <p>{this.state.artifact.description}</p>
                       
                 </Row>
+                <br />
+                <Button variant='danger' onClick={() => this.props.history.goBack()}>Back To Home</Button>
                 </Jumbotron>
             </div>
-        )
+        )}
     }
 }
 
-
+export default withRouter(ArtDetail)
 

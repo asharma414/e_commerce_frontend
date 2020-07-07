@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 
-export default class ArtCard extends Component {
+class ArtCard extends Component {
     render() {
         return (
             <Card onClick={() => this.props.history.push(`/artifacts/${this.props.artifact.id}`)}>
@@ -28,3 +29,5 @@ export default class ArtCard extends Component {
         )
     }
 }
+
+export default withRouter(ArtCard)

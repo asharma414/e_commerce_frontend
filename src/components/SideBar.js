@@ -51,12 +51,8 @@ class SideBar extends Component {
         <Menu.Item>
           Home
           <Menu.Menu>
-            <Menu.Item
-              name='search'
-              
-              onClick={this.handleItemClick}
-            >
-              About
+            <Menu.Item name='logout' onClick={this.props.logout}>
+            Logout
             </Menu.Item>
             <Menu.Item
               name='about'

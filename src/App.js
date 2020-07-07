@@ -20,26 +20,35 @@ export default class App extends Component {
     filteredCategories: [],
     priceFilter: '10000-10000000',
     checked: {},
-    currentUser: null
+    currentUser: null,
+    admin: false
   }
 
 
   componentDidMount() {
     // let params = '?'
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
-    fetch('http://localhost:3000/artifacts')
-      .then(res => res.json())
-      .then(artifacts => {
-        fetch('http://localhost:3000/categories')
-          .then(r => r.json())
-          .then(categories => {
-            let cat_boolean = {}
-            categories.map(category => cat_boolean[`${category.name}`] = false)
-            let catArr = categories.map(category => category.name)
-            this.setState({ artifacts: artifacts, categories: categories, checked: cat_boolean })
-          })
-      }
-      )
+    if (localStorage.getItem('id') && localStorage.getItem('admin')) {
+      this.setState({currentUser: localStorage.getItem('id'), admin: localStorage.getItem('admin') === 'true' ? true : false})
+      fetch('http://localhost:3000/artifacts')
+        .then(res => res.json())
+        .then(artifacts => {
+          fetch('http://localhost:3000/categories')
+            .then(r => r.json())
+            .then(categories => {
+              let cat_boolean = {}
+              categories.map(category => cat_boolean[`${category.name}`] = false)
+              this.setState({ artifacts: artifacts, categories: categories, checked: cat_boolean })
+            })
+        }
+        )
+    }
+  }
+
+  logoutUser = () => {
+    localStorage.removeItem('id')
+    localStorage.removeItem('admin')
+    this.setState({currentUser: null, admin: false })
   }
 
   // categoryFilter = (arr) => {
@@ -72,8 +81,22 @@ export default class App extends Component {
     this.setState({ priceFilter: value })
   }
 
-  loginUser = () => {
-
+  loginUser = (e, username, password) => {
+    e.preventDefault()
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        localStorage.setItem('id', data.id)
+        localStorage.setItem('admin', data.admin)
+        this.setState({ currentUser: data.id })
+      })
   }
 
   filter = () => {
@@ -92,16 +115,17 @@ export default class App extends Component {
 
       <Router>
         <Route path='/' render={() =>
-          this.state.currentUser ? <Redirect to='/artifacts' /> : <Redirect to='/login' />
+          this.state.currentUser && !this.state.admin ? <Redirect to='/artifacts' /> : <Redirect to='/login' />
         } />
-        <Route exact path='/login' render={() => <Login user={this.loginUser}/>} />
-        
-          <Switch>
-            <Route exact path='/artifacts' render={() =>
-              this.state.artifacts.length === 0 ? 
+        <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
+        <Route exact path='/register' render={() => <Register />} />
+        <Switch>
+          <Route exact path='/artifacts' render={() =>
+            this.state.artifacts.length === 0 ?
               <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
                 <Grid.Column style={{ width: '15%' }}>
                   <SideBar
+                    logout={this.logoutUser}
                     categories={this.state.categories}
                     handleChange={this.changeSearchField}
                     handlePrice={this.setPriceFilter}
@@ -114,13 +138,14 @@ export default class App extends Component {
                   <Loader active inline='centered' />
                   <div style={{ textAlign: 'center' }}>Loading</div>
                 </Grid.Column>
-                </Grid>
-               
-                :
-                
-                <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
+              </Grid>
+
+              :
+
+              <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
                 <Grid.Column style={{ width: '15%' }}>
-                <SideBar
+                  <SideBar
+                    logout={this.logoutUser}
                     categories={this.state.categories}
                     handleChange={this.changeSearchField}
                     handlePrice={this.setPriceFilter}
@@ -132,11 +157,11 @@ export default class App extends Component {
                 <Grid.Column style={{ marginLeft: '50px' }}>
                   <ArtContainer style={{ width: '85%' }} artifacts={this.filter()} searchField={this.state.searchField} />
                 </Grid.Column>
-                </Grid>} />
-                
-            <Route exact path='/artifacts/:id' render={(props) =>
-              <ArtDetail style={{ width: '75%' }} id={props.match.params.id} />} />
-          </Switch>
+              </Grid>} />
+
+          <Route exact path='/artifacts/:id' render={(props) =>
+            <ArtDetail style={{ width: '75%' }} id={props.match.params.id} />} />
+        </Switch>
       </Router>
     );
   }

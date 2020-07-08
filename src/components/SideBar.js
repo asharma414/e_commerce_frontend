@@ -33,41 +33,40 @@ class SideBar extends Component {
 
   render() {
     const { activeIndexes } = this.state;
+   
 
     return (
     
       <Menu className='ui vertical menu' id='left-column'>
+
+        <Menu.Item name='logout' onClick={this.props.logout}>
+          Logout
+        </Menu.Item>
+
         <Menu.Item onClick={() => this.props.history.push('/artifacts')}>
-          
           <img src={logo} />
         </Menu.Item>
 
         <Menu.Item>
-          <Input placeholder='Search by Title'
-            onChange={this.props.handleChange}
-          />
+          <Input placeholder='Search by Title' onChange={this.props.handleChange}/>
         </Menu.Item>
 
-        <Menu.Item>
-          Home
+          <Menu.Item>
+            Home
           <Menu.Menu>
-            <Menu.Item name='logout' onClick={this.props.logout}>
-            Logout
-            </Menu.Item>
-            <Menu.Item
-              name='about'
-           
-              onClick={this.handleItemClick}
-            >
+
+            <Menu.Item name='profile' onClick={this.handleItemClick}>
               Profile
             </Menu.Item>
-            <Menu.Item
-              name='profile'
-              
-              onClick={this.handleItemClick}
-            >
-              Favorites
+
+            <Menu.Item name='about' onClick={this.handleItemClick}>
+              About
             </Menu.Item>
+
+            <Menu.Item name='cart' onClick={this.handleItemClick}>
+              Cart
+            </Menu.Item>
+            
           </Menu.Menu>
         </Menu.Item>
 

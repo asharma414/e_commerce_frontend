@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ArtContainer from './components/ArtContainer'
 import SideBar from './components/SideBar'
+import SideBarDetail from './components/SideBarDetail'
 import ArtDetail from './components/ArtDetail'
 import Login from './components/Login'
 import Register from './components/Register'
@@ -29,7 +30,7 @@ export default class App extends Component {
     // let params = '?'
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
     if (localStorage.getItem('id') && localStorage.getItem('admin')) {
-      this.setState({currentUser: localStorage.getItem('id'), admin: localStorage.getItem('admin') === 'true' ? true : false})
+      this.setState({ currentUser: localStorage.getItem('id'), admin: localStorage.getItem('admin') === 'true' ? true : false })
       fetch('http://localhost:3000/artifacts')
         .then(res => res.json())
         .then(artifacts => {
@@ -48,7 +49,7 @@ export default class App extends Component {
   logoutUser = () => {
     localStorage.removeItem('id')
     localStorage.removeItem('admin')
-    this.setState({currentUser: null, admin: false })
+    this.setState({ currentUser: null, admin: false })
   }
 
   // categoryFilter = (arr) => {
@@ -160,7 +161,22 @@ export default class App extends Component {
               </Grid>} />
 
           <Route exact path='/artifacts/:id' render={(props) =>
-            <ArtDetail style={{ width: '75%' }} id={props.match.params.id} />} />
+            <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
+              <Grid.Column style={{ width: '15%' }}>
+                <SideBarDetail
+                  logout={this.logoutUser}
+                  categories={this.state.categories}
+                  handleChange={this.changeSearchField}
+                  handlePrice={this.setPriceFilter}
+                  handleCategories={this.categoryFilter}
+                  checked={this.state.checked}
+                  toggleCategory={this.toggleCategory}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <ArtDetail style={{ width: '75%' }} id={props.match.params.id} />
+              </Grid.Column>
+            </Grid>} />
         </Switch>
       </Router>
     );

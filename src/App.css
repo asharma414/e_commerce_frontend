@@ -49,21 +49,27 @@
 
 .login_container {
   width: 300px;
-  margin: auto;
-  /* margin-top: 150px; */
+  align-content: left;
+  margin-top: 10px; 
+  margin-left: 10px;
 }
 
-.Login-component {
+.image-component {
   /* The image used */
 
   /* Full height */ 
-  height: 300px;
-  width: 500px;
+  height: 75vh;
+  width: 100%;
   
 
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
+}
+
+.link-text {
+  margin-left: 5px;
+  color: #e5e4f2;
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import logo from '../images/bp2.jpg'
 
@@ -18,23 +18,25 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                <img src={logo} />
+                <img class='image-component' src={logo} />
                 <div className='login_container'>
                     <Form onSubmit={(e) => {
                         this.setState({username: '', password: ''})
                         this.props.formSubmit(e, this.state.username, this.state.password)}}>
-                        <Form.Field>
-                            <label>Username</label>
-                            <input name='username' required onChange={this.formChange} placeholder='Username' value={this.state.username} />
-                        </Form.Field>
-                        <Form.Field>
-                            <label>Password</label>
-                            <input name='password' required onChange={this.formChange} placeholder='Password' value={this.state.password} type='password' />
-                        </Form.Field>
-                        <Button basic color='grey' type='submit'>Submit</Button>
+                        <Form.Group >
+                        <Form.Input
+                            name='username' required onChange={this.formChange} placeholder='Username' value={this.state.username} />
+                      
+                        <Form.Input
+                            name='password' required onChange={this.formChange} placeholder='Password' value={this.state.password} type='password' />
+            
+                        <Form.Button basic color='ui grey inverted button' type='submit' content='Login'/>
+                        </Form.Group>  
                     </Form>
-                    <br />
-                Don't have an account? <Link to='/register'>Register here.</Link>
+                    <div class='link-text'>
+                    Don't have an account? <Link to='/register'>Register here.</Link>
+                    </div>
+                
                 </div>
             </div>
 

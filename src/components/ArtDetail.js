@@ -92,6 +92,7 @@ class ArtDetail extends Component {
                                 </ListGroup>
                             </Col>
                         </Row>
+                        <br/>
                         <Row>
 
                             <h3>{this.state.artifact.title}</h3>
@@ -103,11 +104,7 @@ class ArtDetail extends Component {
 
                         </Row>
                         <br />
-        
-                            
-
-
-
+      
                             <Button variant='danger' onClick={() => this.props.history.goBack()}>Back To Home</Button>
                 </Jumbotron>
             </div>

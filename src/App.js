@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import ArtContainer from './components/ArtContainer'
 import SideBar from './components/SideBar'
-import SideBarDetail from './components/SideBarDetail'
 import ArtDetail from './components/ArtDetail'
 import Login from './components/Login'
 import Register from './components/Register'
@@ -133,71 +132,48 @@ export default class App extends Component {
         } />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
         <Route exact path='/register' render={() => <Register />} />
+       
+        <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
+                <Grid.Column style={{ width: '15%' }}>
+                  <SideBar
+                    userName={this.state.userName}
+                    logout={this.logoutUser}
+                    categories={this.state.categories}
+                    handleChange={this.changeSearchField}
+                    handlePrice={this.setPriceFilter}
+                    handleCategories={this.categoryFilter}
+                    checked={this.state.checked}
+                    toggleCategory={this.toggleCategory}
+
+                  />
+                </Grid.Column>
         <Switch>
           <Route exact path='/cart' render={() =>
           <Cart />}
           />
           <Route exact path='/artifacts' render={() =>
             this.state.artifacts.length === 0 ?
-              <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
-                <Grid.Column style={{ width: '15%' }}>
-                  <SideBar
-                    userName={this.state.userName}
-                    logout={this.logoutUser}
-                    categories={this.state.categories}
-                    handleChange={this.changeSearchField}
-                    handlePrice={this.setPriceFilter}
-                    handleCategories={this.categoryFilter}
-                    checked={this.state.checked}
-                    toggleCategory={this.toggleCategory}
-
-                  />
-                </Grid.Column>
+            
                 <Grid.Column style={{ marginLeft: '50px' }}>
                   <Loader active inline='centered' />
                   <div style={{ textAlign: 'center' }}>Loading</div>
                 </Grid.Column>
-              </Grid>
 
               :
-
-              <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
-                <Grid.Column style={{ width: '15%' }}>
-                  <SideBar
-                    userName={this.state.userName}
-                    logout={this.logoutUser}
-                    categories={this.state.categories}
-                    handleChange={this.changeSearchField}
-                    handlePrice={this.setPriceFilter}
-                    handleCategories={this.categoryFilter}
-                    checked={this.state.checked}
-                    toggleCategory={this.toggleCategory}
-                  />
-                </Grid.Column>
+             
                 <Grid.Column style={{ marginLeft: '50px' }}>
                   <ArtContainer style={{ width: '85%' }} artifacts={this.filter()} searchField={this.state.searchField} />
                 </Grid.Column>
-              </Grid>} />
+           } />
 
           <Route exact path='/artifacts/:id' render={(props) =>
-            <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
-              <Grid.Column style={{ width: '15%' }}>
-                <SideBarDetail
-                  userName={this.state.userName}
-                  logout={this.logoutUser}
-                  categories={this.state.categories}
-                  handleChange={this.changeSearchField}
-                  handlePrice={this.setPriceFilter}
-                  handleCategories={this.categoryFilter}
-                  checked={this.state.checked}
-                  toggleCategory={this.toggleCategory}
-                />
-              </Grid.Column>
+    
               <Grid.Column>
                 <ArtDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
               </Grid.Column>
-            </Grid>} />
+            } />
         </Switch>
+        </Grid>
       </Router>
     );
   }

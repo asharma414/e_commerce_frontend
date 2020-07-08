@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
+import { Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
 import { withRouter, Link } from 'react-router-dom';
 
@@ -30,11 +30,13 @@ class SideBar extends Component {
     this.setState({ activeIndexes: newIndex });
   };
     
-
+  
   render() {
     const { activeIndexes } = this.state;
 
-
+    if (this.props.location.pathname === '/login' || this.props.location.pathname === '/register') {
+      return <span></span>
+    } else {
     return (
     
       <Menu className='ui vertical menu' id='left-column'>
@@ -47,9 +49,11 @@ class SideBar extends Component {
           <img src={logo} />
         </Menu.Item>
 
+        { this.props.location.pathname === '/artifacts' ?
         <Menu.Item>
           <Input placeholder='Search by Title' onChange={this.props.handleChange}/>
-        </Menu.Item>
+        </Menu.Item>:
+        null}
 
           <Menu.Item>
             Home
@@ -69,8 +73,8 @@ class SideBar extends Component {
             
           </Menu.Menu>
         </Menu.Item>
-
-        <Menu.Item
+        { this.props.location.pathname === '/artifacts' ? 
+        <div><Menu.Item
           name='browse'
         
           onClick={this.handleItemClick}>
@@ -156,11 +160,12 @@ class SideBar extends Component {
          )}
       </Form>}
           />
-        </Accordion>
+        </Accordion></div> : null}
       </Menu>
     
     )
   }
+}
 }
 
 export default withRouter(SideBar)

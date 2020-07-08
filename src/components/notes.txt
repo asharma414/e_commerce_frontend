@@ -14,9 +14,9 @@ E-licit Art
     Things to do:
     - pagination
    // - login/auth (admin/user) --> route for '/'
-    - buying
+    //- buying
     - bidding
-    - cart //(buttons for cart and logout)
+    -// cart //(buttons for cart and logout)
     - random browse or 
 
     STRETCH

@@ -65,7 +65,7 @@ export default class App extends Component {
     let categoryArr = []
     let array = Object.entries(this.state.checked).map(category => category[0] === e.target.innerText ? [category[0], !category[1]] : [category[0], category[1]])
     if (this.state.checked[`${e.target.innerText}`]) {
-      categoryArr = this.state.filteredCategories.filter(cat => cat != e.target.innerText)
+      categoryArr = this.state.filteredCategories.filter(cat => cat !== e.target.innerText)
       this.setState({ checked: Object.fromEntries(array), filteredCategories: categoryArr })
     } else {
       categoryArr = [...this.state.filteredCategories, e.target.innerText]
@@ -94,9 +94,13 @@ export default class App extends Component {
     })
       .then(res => res.json())
       .then(data => {
+        if (!data.error) {
         localStorage.setItem('id', data.id)
         localStorage.setItem('admin', data.admin)
         this.setState({ currentUser: data.id })
+      } else {
+        alert(data.message)
+      }
       })
   }
 
@@ -116,7 +120,7 @@ export default class App extends Component {
 
       <Router>
         <Route path='/' render={() =>
-          this.state.currentUser && !this.state.admin ? <Redirect to='/artifacts' /> : <Redirect to='/login' />
+          this.state.currentUser ? <Redirect to='/artifacts' /> : <Redirect to='/login' />
         } />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
         <Route exact path='/register' render={() => <Register />} />

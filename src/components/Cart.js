@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Jumbotron, ListGroup } from 'react-bootstrap'
 import { Image, Loader, Button, Icon } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 class Cart extends Component {
     
@@ -19,7 +19,9 @@ class Cart extends Component {
         })
     }
 
+    
     checkout = () => {
+        if (this.state.orders.length > 0){
         fetch('http://localhost:3000/checkout', {
             method: 'POST',
             headers: { 'Content-type': 'application/json', Accept: 'application/json'},
@@ -28,7 +30,11 @@ class Cart extends Component {
             })
         })
         .then(res => res.json())
-        .then(console.log)
+        .then(data => {
+            alert(`Your total is: ${data.total}`)
+            this.setState({orders: [], total: 0.00})
+        })
+    } 
     }
 
     removeOrder = (id) => {
@@ -47,7 +53,7 @@ class Cart extends Component {
         return (
             <Jumbotron>
                     <ListGroup variant="flush">
-                    {this.state.orders.map(order => <ListGroup.Item><span>{order.artifact.title} - ${parseFloat(order.total_price).toFixed(2)}</span>  <Button onClick={() => this.removeOrder(order.id)}>Remove</Button></ListGroup.Item>)}
+                    {this.state.orders.map(order => <ListGroup.Item><Link to={'/artifacts/'+order.artifact.id}>{order.artifact.title} - ${parseFloat(order.total_price).toFixed(2)}</Link>  <Button onClick={() => this.removeOrder(order.id)}>Remove</Button></ListGroup.Item>)}
                     </ListGroup>
                     <ListGroup horizontal>
                         <span>Total: ${this.state.total}</span>

@@ -40,7 +40,7 @@ class SideBar extends Component {
       <Menu className='ui vertical menu' id='left-column'>
 
         <Menu.Item name='logout' onClick={this.props.logout}>
-          Logout
+          Logout, {this.props.userName}
         </Menu.Item>
 
         <Menu.Item onClick={() => this.props.history.push('/artifacts')}>

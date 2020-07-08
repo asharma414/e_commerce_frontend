@@ -23,15 +23,16 @@ export default class App extends Component {
     priceFilter: '10000-10000000',
     checked: {},
     currentUser: null,
-    admin: false
+    admin: false,
+    userName: null
   }
 
 
   componentDidMount() {
     // let params = '?'
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
-    if (localStorage.getItem('id') && localStorage.getItem('admin')) {
-      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false })
+    if (localStorage.getItem('id') && localStorage.getItem('admin') && localStorage.getItem('name'))  {
+      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false, userName: localStorage.getItem('name')})
       this.fetchItems()
     }
   }
@@ -102,7 +103,9 @@ export default class App extends Component {
         if (!data.error) {
         localStorage.setItem('id', data.id)
         localStorage.setItem('admin', data.admin)
-        this.setState({ currentUser: parseInt(data.id) })
+        localStorage.setItem('name', data.first_name)
+        this.setState({ currentUser: parseInt(data.id), userName: data.first_name, admin: data.admin})
+
         this.fetchItems()
       } else {
         alert(data.message)
@@ -139,7 +142,7 @@ export default class App extends Component {
               <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
                 <Grid.Column style={{ width: '15%' }}>
                   <SideBar
-                    user={this.state.currentUser}
+                    userName={this.state.userName}
                     logout={this.logoutUser}
                     categories={this.state.categories}
                     handleChange={this.changeSearchField}
@@ -161,7 +164,7 @@ export default class App extends Component {
               <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
                 <Grid.Column style={{ width: '15%' }}>
                   <SideBar
-                    user={this.state.currentUser}
+                    userName={this.state.userName}
                     logout={this.logoutUser}
                     categories={this.state.categories}
                     handleChange={this.changeSearchField}
@@ -180,7 +183,7 @@ export default class App extends Component {
             <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
               <Grid.Column style={{ width: '15%' }}>
                 <SideBarDetail
-                  user={this.state.currentUser}
+                  userName={this.state.userName}
                   logout={this.logoutUser}
                   categories={this.state.categories}
                   handleChange={this.changeSearchField}

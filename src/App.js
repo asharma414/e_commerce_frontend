@@ -135,6 +135,7 @@ export default class App extends Component {
               <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
                 <Grid.Column style={{ width: '15%' }}>
                   <SideBar
+                    user={this.state.currentUser}
                     logout={this.logoutUser}
                     categories={this.state.categories}
                     handleChange={this.changeSearchField}
@@ -155,6 +156,7 @@ export default class App extends Component {
               <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
                 <Grid.Column style={{ width: '15%' }}>
                   <SideBar
+                    user={this.state.currentUser}
                     logout={this.logoutUser}
                     categories={this.state.categories}
                     handleChange={this.changeSearchField}
@@ -173,6 +175,7 @@ export default class App extends Component {
             <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
               <Grid.Column style={{ width: '15%' }}>
                 <SideBarDetail
+                  user={this.state.currentUser}
                   logout={this.logoutUser}
                   categories={this.state.categories}
                   handleChange={this.changeSearchField}

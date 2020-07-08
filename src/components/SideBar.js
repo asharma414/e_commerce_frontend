@@ -33,7 +33,7 @@ class SideBar extends Component {
 
   render() {
     const { activeIndexes } = this.state;
-   
+
 
     return (
     

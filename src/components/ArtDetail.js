@@ -24,6 +24,9 @@ class ArtDetail extends Component {
     }
 
     addToCart = (artifact_id, user_id) => {
+        console.log('adding to cart')
+        console.log(artifact_id, user_id)
+
         fetch('http://localhost:3000/orders', {
             method: "POST",
             headers: {
@@ -34,7 +37,13 @@ class ArtDetail extends Component {
                 user_id: user_id,
                 artifact_id: artifact_id
             })
-        })
+        }).then(resp => resp.json())
+        .then(data => console.log(data))
+
+    }
+
+    bidItem = (e) => {
+        console.log('bidding')
     }
 
     handleSlide = () => {
@@ -95,13 +104,15 @@ class ArtDetail extends Component {
 
                                 </ListGroup>
                                 <br />
+
                                 <ListGroup horizontal>
-                                <Button onClick={this.addToCart(this.state.artifact.id, localStorage.getItem('id'))}>Add to Cart</Button>
-                            <Button>Bid</Button>
+                                    <Button onClick={() => this.addToCart(this.state.artifact.id, localStorage.getItem('id'))}>Add to Cart</Button>
+                                    <Button onClick={this.bidItem}>Bid</Button>
                                 </ListGroup>
+
                             </Col>
                         </Row>
-                        <br/>
+                        <br />
                         <Row>
 
                             <h3>{this.state.artifact.title}</h3>
@@ -113,11 +124,12 @@ class ArtDetail extends Component {
 
                         </Row>
                         <br />
-      
-                            <Button variant='danger' onClick={() => this.props.history.goBack()}>Back To Home</Button>
-                </Jumbotron>
-            </div>
-        )}
+
+                        <Button variant='danger' onClick={() => this.props.history.goBack()}>Back To Home</Button>
+                    </Jumbotron>
+                </div>
+            )
+        }
     }
 }
 

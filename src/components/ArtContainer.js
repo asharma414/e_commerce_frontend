@@ -35,7 +35,7 @@ export default function ArtContainer(props) {
                 {filteredArt.map(artifact => 
                 <Grid.Column mobile={16} tablet={8} computer={4}><ArtCard key={artifact.id} artifact={artifact} /></Grid.Column>)}
             </Grid>
-           <Pagination defaultActivePage={5} totalPages={10}/>
+           {/* <Pagination defaultActivePage={5} totalPages={10}/> */}
            </Container>
         )
     } else {

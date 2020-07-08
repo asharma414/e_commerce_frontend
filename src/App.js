@@ -147,6 +147,7 @@ export default class App extends Component {
 
                   />
                 </Grid.Column>
+            {!this.state.admin ? 
         <Switch>
           <Route exact path='/cart' render={() =>
           <Cart />}
@@ -172,7 +173,9 @@ export default class App extends Component {
                 <ArtDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
               </Grid.Column>
             } />
-        </Switch>
+        </Switch>: 
+        <Switch>
+          </Switch>} 
         </Grid>
       </Router>
     );

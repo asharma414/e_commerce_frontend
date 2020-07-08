@@ -31,19 +31,23 @@ export default class App extends Component {
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
     if (localStorage.getItem('id') && localStorage.getItem('admin')) {
       this.setState({ currentUser: localStorage.getItem('id'), admin: localStorage.getItem('admin') === 'true' ? true : false })
-      fetch('http://localhost:3000/artifacts')
-        .then(res => res.json())
-        .then(artifacts => {
-          fetch('http://localhost:3000/categories')
-            .then(r => r.json())
-            .then(categories => {
-              let cat_boolean = {}
-              categories.map(category => cat_boolean[`${category.name}`] = false)
-              this.setState({ artifacts: artifacts, categories: categories, checked: cat_boolean })
-            })
-        }
-        )
+      this.fetchItems()
     }
+  }
+
+  fetchItems = () => {
+    fetch('http://localhost:3000/artifacts')
+    .then(res => res.json())
+    .then(artifacts => {
+      fetch('http://localhost:3000/categories')
+        .then(r => r.json())
+        .then(categories => {
+          let cat_boolean = {}
+          categories.map(category => cat_boolean[`${category.name}`] = false)
+          this.setState({ artifacts: artifacts, categories: categories, checked: cat_boolean })
+        })
+    }
+    )
   }
 
   logoutUser = () => {
@@ -98,6 +102,7 @@ export default class App extends Component {
         localStorage.setItem('id', data.id)
         localStorage.setItem('admin', data.admin)
         this.setState({ currentUser: data.id })
+        this.fetchItems()
       } else {
         alert(data.message)
       }

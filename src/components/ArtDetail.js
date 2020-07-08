@@ -23,6 +23,20 @@ class ArtDetail extends Component {
             )
     }
 
+    addToCart = (artifact_id, user_id) => {
+        fetch('http://localhost:3000/orders', {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                artifact_id: artifact_id
+            })
+        })
+    }
+
     handleSlide = () => {
         this.setState({ index: (this.state.index + 1) % this.state.images.length })
     }
@@ -82,12 +96,7 @@ class ArtDetail extends Component {
                                 </ListGroup>
                                 <br />
                                 <ListGroup horizontal>
-                                <Button animated='vertical'>
-                                <Button.Content hidden>Order</Button.Content>
-                                <Button.Content visible>
-                                    <Icon name='shop' />
-                                </Button.Content>
-                            </Button>
+                                <Button onClick={this.addToCart(this.state.artifact.id, localStorage.getItem('id'))}>Add to Cart</Button>
                             <Button>Bid</Button>
                                 </ListGroup>
                             </Col>

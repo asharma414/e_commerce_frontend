@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 class ArtDetail extends Component {
 
     state = {
+        artifact: null,
         images: []
     }
 
@@ -25,9 +26,6 @@ class ArtDetail extends Component {
     }
 
     addToCart = (artifact_id, user_id) => {
-        console.log('adding to cart')
-        console.log(artifact_id, user_id)
-
         fetch('http://localhost:3000/orders', {
             method: "POST",
             headers: {
@@ -39,8 +37,11 @@ class ArtDetail extends Component {
                 artifact_id: artifact_id
             })
         }).then(resp => resp.json())
-        .then(data => console.log(data))
-
+        .then(data => {
+            let updatedArtifact = {...this.state.artifact}
+            updatedArtifact['orders'] = [...updatedArtifact['orders'], data]
+            this.setState({artifact: updatedArtifact})
+        })
     }
 
     bidItem = (e) => {
@@ -107,7 +108,8 @@ class ArtDetail extends Component {
                                 <br />
 
                                 <ListGroup horizontal>
-                                    <Button onClick={() => this.addToCart(this.state.artifact.id, localStorage.getItem('id'))}>Add to Cart</Button>
+                                        {this.state.artifact.orders.find(order => order.user_id === this.props.currentUser) ? <Button>Added to Cart</Button> : 
+                                    <Button onClick={() => this.addToCart(this.state.artifact.id, this.props.currentUser)}>Add to Cart</Button>}
                                     <Button onClick={this.bidItem}>Bid</Button>
                                 </ListGroup>
 

@@ -1,22 +1,63 @@
 import React, { Component } from 'react'
+import { Jumbotron, ListGroup } from 'react-bootstrap'
+import { Image, Loader, Button, Icon } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 
-export default class Cart extends Component {
+class Cart extends Component {
     
-    state={
-        orders: []
+    state = {
+        orders: [],
+        total: 0
     }
     
     componentDidMount() {
         fetch(`http://localhost:3000/cart?user_id=${localStorage.getItem('id')}`)
         .then(res => res.json())
-        .then(data => this.setState({orders: data}))
+        .then(data => {
+            let total = data.reduce(function (acc, obj) { return acc + parseFloat(obj.total_price); }, 0);
+            this.setState({orders: data, total: total.toFixed(2)})
+        })
+    }
+
+    checkout = () => {
+        fetch('http://localhost:3000/checkout', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json', Accept: 'application/json'},
+            body: JSON.stringify({
+                orders: this.state.orders
+            })
+        })
+        .then(res => res.json())
+        .then(console.log)
+    }
+
+    removeOrder = (id) => {
+        fetch(`http://localhost:3000/orders/${id}`, {
+            method: 'DELETE',
+            headers: {'Content-type': 'application/json', Accept: 'application/json'}
+        })
+        .then(res => res.json())
+        .then(data => {
+            let newTotal = parseFloat(this.state.total) - parseFloat(data.total_price)
+            this.setState({total: newTotal.toFixed(2), orders: this.state.orders.filter(order => order.id !== data.id)})
+        })
     }
     
     render() {
         return (
-            <div>
-                
-            </div>
+            <Jumbotron>
+                    <ListGroup variant="flush">
+                    {this.state.orders.map(order => <ListGroup.Item><span>{order.artifact.title} - ${parseFloat(order.total_price).toFixed(2)}</span>  <Button onClick={() => this.removeOrder(order.id)}>Remove</Button></ListGroup.Item>)}
+                    </ListGroup>
+                    <ListGroup horizontal>
+                        <span>Total: ${this.state.total}</span>
+                        <Button onClick={this.checkout}>Checkout</Button>
+                    </ListGroup>
+            <br />
+            <Button variant='danger' onClick={() => this.props.history.goBack()}>Back To Home</Button>
+        </Jumbotron>
         )
     }
 }
+
+export default withRouter(Cart)

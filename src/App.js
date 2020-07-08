@@ -31,7 +31,7 @@ export default class App extends Component {
     // let params = '?'
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
     if (localStorage.getItem('id') && localStorage.getItem('admin')) {
-      this.setState({ currentUser: localStorage.getItem('id'), admin: localStorage.getItem('admin') === 'true' ? true : false })
+      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false })
       this.fetchItems()
     }
   }
@@ -102,7 +102,7 @@ export default class App extends Component {
         if (!data.error) {
         localStorage.setItem('id', data.id)
         localStorage.setItem('admin', data.admin)
-        this.setState({ currentUser: data.id })
+        this.setState({ currentUser: parseInt(data.id) })
         this.fetchItems()
       } else {
         alert(data.message)
@@ -191,7 +191,7 @@ export default class App extends Component {
                 />
               </Grid.Column>
               <Grid.Column>
-                <ArtDetail style={{ width: '75%' }} id={props.match.params.id} />
+                <ArtDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
               </Grid.Column>
             </Grid>} />
         </Switch>

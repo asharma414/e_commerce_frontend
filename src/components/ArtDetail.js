@@ -3,6 +3,7 @@ import { Carousel, Jumbotron, Row, Col, ListGroup } from 'react-bootstrap'
 import { Image, Loader, Button, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
 
+
 class ArtDetail extends Component {
 
     state = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Button, Icon } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 
 class SideBarDetail extends Component {
@@ -37,7 +37,7 @@ class SideBarDetail extends Component {
             </Menu.Item>
 
             <Menu.Item name='cart' onClick={this.handleItemClick}>
-              Cart
+              <Link to='/cart'>Cart</Link>
             </Menu.Item>
 
           </Menu.Menu>

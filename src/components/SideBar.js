@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Dropdown, Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 
 class SideBar extends Component {
@@ -64,7 +64,7 @@ class SideBar extends Component {
             </Menu.Item>
 
             <Menu.Item name='cart' onClick={this.handleItemClick}>
-              Cart
+              <Link to='/cart'>Cart</Link>
             </Menu.Item>
             
           </Menu.Menu>

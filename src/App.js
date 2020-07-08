@@ -6,6 +6,7 @@ import SideBarDetail from './components/SideBarDetail'
 import ArtDetail from './components/ArtDetail'
 import Login from './components/Login'
 import Register from './components/Register'
+import Cart from './components/Cart'
 import UserProfile from './components/UserProfile'
 import { Grid, Loader } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -130,6 +131,9 @@ export default class App extends Component {
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
         <Route exact path='/register' render={() => <Register />} />
         <Switch>
+          <Route exact path='/cart' render={() =>
+          <Cart />}
+          />
           <Route exact path='/artifacts' render={() =>
             this.state.artifacts.length === 0 ?
               <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
@@ -143,6 +147,7 @@ export default class App extends Component {
                     handleCategories={this.categoryFilter}
                     checked={this.state.checked}
                     toggleCategory={this.toggleCategory}
+
                   />
                 </Grid.Column>
                 <Grid.Column style={{ marginLeft: '50px' }}>

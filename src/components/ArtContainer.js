@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ArtCard from './ArtCard'
-import { Grid } from 'semantic-ui-react'
+import { Container, Grid, Pagination } from 'semantic-ui-react'
 
 // export default class ArtContainer extends Component {
 
@@ -30,10 +30,13 @@ export default function ArtContainer(props) {
     )
     if (props.artifacts.length > 0) {
         return (
+            <Container>
             <Grid columns={4} relaxed style={{paddingRight: 0}}>
                 {filteredArt.map(artifact => 
                 <Grid.Column mobile={16} tablet={8} computer={4}><ArtCard key={artifact.id} artifact={artifact} /></Grid.Column>)}
             </Grid>
+           <Pagination defaultActivePage={5} totalPages={10}/>
+           </Container>
         )
     } else {
         return (

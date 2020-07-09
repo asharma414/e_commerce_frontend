@@ -6,6 +6,7 @@ import ArtDetail from './components/ArtDetail'
 import Login from './components/Login'
 import Register from './components/Register'
 import Cart from './components/Cart'
+import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { Grid, Loader } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -144,7 +145,10 @@ export default class App extends Component {
           }
         } } />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
+        
         <Route exact path='/register' render={() => <Register />} />
+       
+   
        
         <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
                 <Grid.Column style={{ width: '15%' }}>
@@ -189,7 +193,9 @@ export default class App extends Component {
         </Switch>: 
         <Switch>
           <Route to='/dashboard' render={() => 
-          <Grid.Column></Grid.Column>
+          <Grid.Column>
+            <Dashboard/>
+          </Grid.Column>
           }/>
         </Switch>} 
         </Grid>

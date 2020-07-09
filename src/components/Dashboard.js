@@ -8,6 +8,10 @@ export default class Dashboard extends Component {
         return (
             <Jumbotron className='cart-jumbotron'>
                     
+              <span><h4><b>Welcome, {this.props.userName}</b></h4></span>
+              <br/>
+              <p>These are your sales statistics:</p>
+
               
                   
                 

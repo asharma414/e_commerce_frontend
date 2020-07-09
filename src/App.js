@@ -211,7 +211,9 @@ export default class App extends Component {
         <Switch>
           <Route to='/dashboard' render={() => 
           <Grid.Column>
-            <Dashboard/>
+            <Dashboard 
+            userName={this.state.userName}
+            />
           </Grid.Column>
           }/>
         </Switch>} 

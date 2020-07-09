@@ -155,14 +155,14 @@ export default class App extends Component {
           <Route exact path='/artifacts' render={() =>
             this.state.artifacts.length === 0 ?
             
-                <Grid.Column style={{ marginLeft: '50px' }}>
+                <Grid.Column style={{ marginLeft: '20px' }}>
                   <Loader active inline='centered' />
-                  <div style={{ textAlign: 'center' }}>Loading</div>
+                  <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
                 </Grid.Column>
 
               :
              
-                <Grid.Column style={{ marginLeft: '50px' }}>
+                <Grid.Column style={{ marginLeft: '20px' }}>
                   <ArtContainer style={{ width: '85%' }} artifacts={this.filter()} searchField={this.state.searchField} />
                 </Grid.Column>
            } />

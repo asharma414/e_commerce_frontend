@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Carousel, Jumbotron, Row, Col, ListGroup } from 'react-bootstrap'
-import { Image, Loader, Button, Icon } from 'semantic-ui-react'
+import { Carousel, Jumbotron, Row, Col } from 'react-bootstrap'
+import { Image, Loader, Button, List, Icon, Form, Input } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
 
 
@@ -64,13 +64,13 @@ class ArtDetail extends Component {
             return (
                 <div>
                     <Loader active inline='centered' />
-                    <div style={{ textAlign: 'center' }}>Loading</div>
+                    <div style={{ textAlign: 'center', color: '#a8a7b9'}}>Loading</div>
                 </div>
             )
         } else {
             return (
                 <div>
-                    <Jumbotron>
+                    <Jumbotron className='artcard-jumbotron'>
                         <Row>
                             <Col>
                                 {this.state.images.length > 1 ?
@@ -90,45 +90,132 @@ class ArtDetail extends Component {
                                 }
                             </Col>
                             <Col>
-                                <ListGroup variant="flush">
+                                <List variant="flush">
 
-                                    <ListGroup.Item>${parseFloat(this.state.artifact.list_price).toFixed(2)}</ListGroup.Item>
+                                    <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>List Price</List.Header>
+                                        <List.Description>${parseFloat(this.state.artifact.list_price).toFixed(2)}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>
+
+                                        {this.state.artifact.accession_dated ?
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Dated</List.Header>
+                                        <List.Description>{this.state.artifact.dated}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
+                                        
 
                                     {this.state.artifact.century ?
-                                        <ListGroup.Item>{this.state.artifact.century}</ListGroup.Item>
-                                        : null}
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Century</List.Header>
+                                        <List.Description>{this.state.artifact.century}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
+
+                                        {this.state.artifact.culture ?
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Culture</List.Header>
+                                        <List.Description>{this.state.artifact.culture}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
+
                                     {this.state.artifact.technique ?
-                                        <ListGroup.Item>{this.state.artifact.technique}</ListGroup.Item>
-                                        : null}
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Technique</List.Header>
+                                        <List.Description>{this.state.artifact.technique}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
+
                                     {this.state.artifact.dimensions ?
-                                        <ListGroup.Item>{this.state.artifact.dimensions}</ListGroup.Item>
-                                        : null}
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Dimensions</List.Header>
+                                        <List.Description>{this.state.artifact.dimensions}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
 
-                                </ListGroup>
+                                        {this.state.artifact.medium ?
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Medium</List.Header>
+                                        <List.Description>{this.state.artifact.medium}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
+
+                                        {this.state.artifact.accession_year ?
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Accession Year</List.Header>
+                                        <List.Description>{this.state.artifact.accession_year}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
+
+                                        {this.state.artifact.accession_method ?
+                                        <List.Item>
+                                        <Icon name='right triangle'/>
+                                        <List.Content>
+                                        <List.Header>Accession Method</List.Header>
+                                        <List.Description>{this.state.artifact.accession_method}
+                                        </List.Description>
+                                        </List.Content>
+                                        </List.Item>: null}
+
+                                </List>
                                 <br />
-
-                                <ListGroup horizontal>
-                                        {this.state.artifact.orders.find(order => order.user_id === this.props.currentUser) ? <Button>Added to Cart</Button> : 
-                                    <Button onClick={() => this.addToCart(this.state.artifact.id, this.props.currentUser)}>Add to Cart</Button>}
-                                    <Button onClick={this.bidItem}>Bid</Button>
-                                </ListGroup>
 
                             </Col>
                         </Row>
-                        <br />
+            
                         <Row>
-
-                            <h3>{this.state.artifact.title}</h3>
+                        <h4><b>{this.state.artifact.title}</b></h4>
                         </Row>
+                        <br/>
                         <Row>
-                            <p>Verification: {this.state.artifact.verification}</p>
-                            <p>{this.state.artifact.provenance}</p>
-                            <p>{this.state.artifact.description}</p>
+                            {this.state.artifact.verification ?
+                            <p><b>Verification:</b> {this.state.artifact.verification}</p>
+                            : null}
+                            <br/>
+                            {this.state.artifact.provenance ?
+                            <p><b>Provenance:</b> {this.state.artifact.provenance}</p>
+                            : null}
+                            <br/>
+                            {this.state.artifact.description ? 
+                            <p><b>Description:</b> {this.state.artifact.description}</p>
+                            : null}
 
                         </Row>
-                        <br />
-
-                        <Button variant='danger' onClick={() => this.props.history.goBack()}>Back To Home</Button>
+                       
+                        <div>
+                            {this.state.artifact.orders.find(order => order.user_id === this.props.currentUser) ? <Button>Added to Cart</Button> : 
+                            <Button floated='right' style={{ color: '#58768d'}} onClick={() => this.addToCart(this.state.artifact.id, this.props.currentUser)}>Add to Cart</Button>}
+                            <Button floated='right' style={{ color: '#58768d'}} onClick={this.bidItem}>Bid</Button>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <Button floated='left' style={{ color: '#58768d'}} floated='left' variant='danger' onClick={() => this.props.history.goBack()}>Back</Button> 
                     </Jumbotron>
                 </div>
             )

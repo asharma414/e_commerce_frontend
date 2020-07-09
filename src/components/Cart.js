@@ -51,17 +51,23 @@ class Cart extends Component {
     
     render() {
         return (
-            <Jumbotron>
-                    <ListGroup variant="flush">
-                    {this.state.orders.map(order => <ListGroup.Item><Link to={'/artifacts/'+order.artifact.id}>{order.artifact.title} - ${parseFloat(order.total_price).toFixed(2)}</Link>  <Button onClick={() => this.removeOrder(order.id)}>Remove</Button></ListGroup.Item>)}
+
+            <Jumbotron className='cart-jumbotron'>
+                    <ListGroup >
+                    {this.state.orders.map(order => <ListGroup.Item><Image src={order.artifact.primary_image} avatar/><Link to={'/artifacts/'+order.artifact.id}>{order.artifact.title}</Link> List Price: ${parseFloat(order.total_price).toFixed(2)}  
+                    <Button style={{ color: '#58768d'}} floated='right' onClick={() => this.removeOrder(order.id)}>Remove</Button></ListGroup.Item>)}
                     </ListGroup>
-                    <ListGroup horizontal>
-                        <span>Total: ${this.state.total}</span>
-                        <Button onClick={this.checkout}>Checkout</Button>
-                    </ListGroup>
-            <br />
-            <Button variant='danger' onClick={() => this.props.history.goBack()}>Back To Home</Button>
-        </Jumbotron>
+                    <div>
+                        <br/>
+                        <span><h5 style={{textAlign: 'right'}}>Total: ${this.state.total}</h5></span>
+                        <br/>
+                    </div>
+                    <br/>
+                    <div>
+                        <Button style={{ color: '#58768d'}} floated='right' onClick={this.checkout}>Checkout</Button>
+                        <Button style={{ color: '#58768d'}} floated='left' onClick={() => this.props.history.goBack()}>Back</Button>
+                    </div>
+            </Jumbotron>
         )
     }
 }

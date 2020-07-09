@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 class ArtCard extends Component {
     render() {
         return (
+           
             <Card onClick={() => this.props.history.push(`/artifacts/${this.props.artifact.id}`)}>
                 <Image src={this.props.artifact.primary_image} wrapped size='small' />
                 <Card.Content>
@@ -19,13 +20,14 @@ class ArtCard extends Component {
                         {this.props.artifact.category.name}
                     </Card.Description> */}
                 </Card.Content>
-                <Card.Content extra>
-                    <a>
+                <Card.Content extra >
+                    <a style={{ color: '#58768d'}}>
                         <Icon name='dollar sign' />
                         {parseFloat(this.props.artifact.list_price).toFixed(2)}
                     </a>
                 </Card.Content>
             </Card>
+           
         )
     }
 }

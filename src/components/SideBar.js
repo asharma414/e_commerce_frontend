@@ -68,7 +68,7 @@ class SideBar extends Component {
             </Menu.Item>
 
             <Menu.Item name='cart' onClick={this.handleItemClick}>
-              <Link to='/cart'>Cart</Link>
+              <Link to='/cart' style={{ color: '#58768d' }}>Cart</Link>
             </Menu.Item>
             
           </Menu.Menu>

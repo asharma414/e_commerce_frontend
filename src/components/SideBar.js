@@ -172,35 +172,35 @@ class SideBar extends Component {
                     <Form.Field>
                       <Checkbox
                         label='Unchecked'
-                        onChange={this.props.toggleCategory}
+                        onChange={this.props.toggleVerifs}
                         checked={this.props.checkedVerifs['unchecked']}
                       />
                     </Form.Field>
                     <Form.Field>
                       <Checkbox
-                        label='Adequate'
-                        onChange={this.props.toggleCategory}
-                        checked={this.props.checkedVerifs['adequate']}
-                      />
-                    </Form.Field>
-                    <Form.Field>
-                      <Checkbox
-                        label='test'
-                        onChange={this.props.toggleCategory}
-                        checked={this.props.checkedVerifs['test']}
+                        label='Unverified'
+                        onChange={this.props.toggleVerifs}
+                        checked={this.props.checkedVerifs['unverified']}
                       />
                     </Form.Field>
                     <Form.Field>
                       <Checkbox
                         label='Adequate'
-                        onChange={this.props.toggleCategory}
+                        onChange={this.props.toggleVerifs}
                         checked={this.props.checkedVerifs['adequate']}
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <Checkbox
+                        label='Good'
+                        onChange={this.props.toggleVerifs}
+                        checked={this.props.checkedVerifs['good']}
                       />
                     </Form.Field>
                     <Form.Field>
                       <Checkbox
                         label='Best'
-                        onChange={this.props.toggleCategory}
+                        onChange={this.props.toggleVerifs}
                         checked={this.props.checkedVerifs['best']}
                       />
                     </Form.Field>

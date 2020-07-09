@@ -54,7 +54,7 @@ export default class App extends Component {
         .then(categories => {
           let cat_boolean = {}
           categories.map(category => cat_boolean[`${category.name}`] = false)
-          let verif_boolean = {'unchecked': false, 'test': false, 'adequate': false, 'good': false, 'best': false}
+          let verif_boolean = {'unchecked': false, 'unverified': false, 'adequate': false, 'good': false, 'best': false}
           this.setState({ artifacts: artifacts, categories: categories, checkedCats: cat_boolean, checkedVerifs: verif_boolean })
         })
     }
@@ -92,12 +92,13 @@ export default class App extends Component {
 
   toggleVerification = (e) => {
     let verificationArr = []
-    let array = Object.entries(this.state.checkedVerifs).map(category => category[0] === e.target.innerText ? [category[0], !category[1]] : [category[0], category[1]])
-    if (this.state.checkedVerifs[`${e.target.innerText}`]) {
-      verificationArr = this.state.filteredCategories.filter(cat => cat !== e.target.innerText)
+    let verif = e.target.innerText.toLowerCase()
+    let array = Object.entries(this.state.checkedVerifs).map(category => category[0] === verif ? [category[0], !category[1]] : [category[0], category[1]])
+    if (this.state.checkedVerifs[`${verif}`]) {
+      verificationArr = this.state.filteredVerifications.filter(cat => cat !== verif)
       this.setState({ checkedVerifs: Object.fromEntries(array), filteredVerifications: verificationArr })
     } else {
-      verificationArr = [...this.state.filteredCategories, e.target.innerText]
+      verificationArr = [...this.state.filteredVerifications, verif]
       this.setState({ checkedVerifs: Object.fromEntries(array), filteredVerifications: verificationArr })
     }
   }
@@ -177,7 +178,7 @@ export default class App extends Component {
                     checkedCats={this.state.checkedCats}
                     toggleCategory={this.toggleCategory}
                     checkedVerifs={this.state.checkedVerifs}
-                    toggleVerifs={this.state.toggleVerification}
+                    toggleVerifs={this.toggleVerification}
                   />
                 </Grid.Column>
             {!this.state.admin ? 

@@ -54,7 +54,7 @@ export default class App extends Component {
         .then(categories => {
           let cat_boolean = {}
           categories.map(category => cat_boolean[`${category.name}`] = false)
-          let verif_boolean = {'unchecked': false, 'unverified': false, 'adequate': false, 'good': false, 'best': false}
+          let verif_boolean = {'unchecked': false, 'poor': false, 'adequate': false, 'good': false, 'best': false}
           this.setState({ artifacts: artifacts, categories: categories, checkedCats: cat_boolean, checkedVerifs: verif_boolean })
         })
     }
@@ -137,11 +137,23 @@ export default class App extends Component {
   }
 
   filter = () => {
+
+    let hash = [
+      'unchecked',
+      'poor',
+      'adequate',
+      'good',
+      'best'
+    ]
+
     let filteredbyCat
     if (this.state.filteredCategories.length === 0) {
       filteredbyCat = this.state.artifacts
     } else {
       filteredbyCat = this.state.artifacts.filter(artifact => this.state.filteredCategories.includes(artifact.category.name))
+    }
+    if (this.state.filteredVerifications.length > 0) {
+      filteredbyCat = filteredbyCat.filter(artifact => this.state.filteredVerifications.includes(hash[artifact.verification_number]))
     }
     return filteredbyCat.filter(artifact => parseFloat(artifact.list_price) >= parseFloat(this.state.priceFilter.split('-')[0]) && parseFloat(artifact.list_price) <= parseFloat(this.state.priceFilter.split('-')[1]))
   }

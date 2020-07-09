@@ -178,9 +178,9 @@ class SideBar extends Component {
                     </Form.Field>
                     <Form.Field>
                       <Checkbox
-                        label='Unverified'
+                        label='Poor'
                         onChange={this.props.toggleVerifs}
-                        checked={this.props.checkedVerifs['unverified']}
+                        checked={this.props.checkedVerifs['poor']}
                       />
                     </Form.Field>
                     <Form.Field>

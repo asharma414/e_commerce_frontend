@@ -91,3 +91,15 @@
 .page-item {
   cursor: pointer;
 }
+
+.pagination {
+  justify-content: center;
+}
+
+.active{
+  color: #58768d;
+}
+
+.page-item{
+  color: #58768d;
+}

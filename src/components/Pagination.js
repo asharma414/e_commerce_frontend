@@ -18,6 +18,7 @@ export default function Pagination({ artifactsPerPage, totalArtifacts, currentPa
      if(totalPages > 1) {
         return (
             <nav>
+               
                 <ul className='pagination'>
                 <li className={ currentPage === 1 ? 'd-none' : 'page-item' }><div onClick={() => navigate(--currentPage)} className='page-link page-item'>Prev</div></li>
                 {pageNumbers.map(number => (
@@ -27,6 +28,7 @@ export default function Pagination({ artifactsPerPage, totalArtifacts, currentPa
                 ))}
                 <li className={ currentPage === pageNumbers.length ? 'd-none' : 'page-item' }><div onClick={() => navigate(++currentPage)} className='page-link page-item'>Next</div></li>
                 </ul>
+               
             </nav>
         )
      } else {

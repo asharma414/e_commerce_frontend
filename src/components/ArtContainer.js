@@ -28,6 +28,8 @@ export default class ArtContainer extends Component {
                         {currentArtifacts.map(artifact =>
                             <Grid.Column mobile={16} tablet={8} computer={4}><ArtCard key={artifact.id} artifact={artifact} /></Grid.Column>)}
                     </Grid>
+                    <br/>
+                    <br/>
                     <Pagination artifactsPerPage={this.state.artifactsPerPage} totalArtifacts={this.props.artifacts.length} currentPage={this.state.currentPage} paginate={this.paginate} />
                 </div>
             )

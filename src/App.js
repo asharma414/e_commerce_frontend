@@ -19,8 +19,10 @@ export default class App extends Component {
     searchField: '',
     categories: [],
     filteredCategories: [],
+    filteredVerifications: [],
     priceFilter: '10000-10000000',
-    checked: {},
+    checkedCats: {},
+    checkedVerifs: {},
     currentUser: null,
     admin: false,
     userName: null,
@@ -51,7 +53,8 @@ export default class App extends Component {
         .then(categories => {
           let cat_boolean = {}
           categories.map(category => cat_boolean[`${category.name}`] = false)
-          this.setState({ artifacts: artifacts, categories: categories, checked: cat_boolean })
+          let verif_boolean = {'unchecked': false, 'test': false, 'adequate': false, 'good': false, 'best': false}
+          this.setState({ artifacts: artifacts, categories: categories, checkedCats: cat_boolean, checkedVerifs: verif_boolean })
         })
     }
     )
@@ -75,15 +78,27 @@ export default class App extends Component {
 
   toggleCategory = (e) => {
     let categoryArr = []
-    let array = Object.entries(this.state.checked).map(category => category[0] === e.target.innerText ? [category[0], !category[1]] : [category[0], category[1]])
-    if (this.state.checked[`${e.target.innerText}`]) {
+    let array = Object.entries(this.state.checkedCats).map(category => category[0] === e.target.innerText ? [category[0], !category[1]] : [category[0], category[1]])
+    if (this.state.checkedCats[`${e.target.innerText}`]) {
       categoryArr = this.state.filteredCategories.filter(cat => cat !== e.target.innerText)
-      this.setState({ checked: Object.fromEntries(array), filteredCategories: categoryArr })
+      this.setState({ checkedCats: Object.fromEntries(array), filteredCategories: categoryArr })
     } else {
       categoryArr = [...this.state.filteredCategories, e.target.innerText]
-      this.setState({ checked: Object.fromEntries(array), filteredCategories: categoryArr })
+      this.setState({ checkedCats: Object.fromEntries(array), filteredCategories: categoryArr })
     }
     // this.categoryFilter(categoryArr)
+  }
+
+  toggleVerification = (e) => {
+    let verificationArr = []
+    let array = Object.entries(this.state.checkedVerifs).map(category => category[0] === e.target.innerText ? [category[0], !category[1]] : [category[0], category[1]])
+    if (this.state.checkedVerifs[`${e.target.innerText}`]) {
+      verificationArr = this.state.filteredCategories.filter(cat => cat !== e.target.innerText)
+      this.setState({ checkedVerifs: Object.fromEntries(array), filteredVerifications: verificationArr })
+    } else {
+      verificationArr = [...this.state.filteredCategories, e.target.innerText]
+      this.setState({ checkedVerifs: Object.fromEntries(array), filteredVerifications: verificationArr })
+    }
   }
 
   changeSearchField = (e) => {
@@ -155,9 +170,10 @@ export default class App extends Component {
                     handleChange={this.changeSearchField}
                     handlePrice={this.setPriceFilter}
                     handleCategories={this.categoryFilter}
-                    checked={this.state.checked}
+                    checkedCats={this.state.checkedCats}
                     toggleCategory={this.toggleCategory}
-
+                    checkedVerifs={this.state.checkedVerifs}
+                    toggleVerifs={this.state.toggleVerification}
                   />
                 </Grid.Column>
             {!this.state.admin ? 

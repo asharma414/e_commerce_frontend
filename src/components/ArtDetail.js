@@ -193,17 +193,23 @@ class ArtDetail extends Component {
                         </Row>
                         <br/>
                         <Row>
+                            
                             {this.state.artifact.verification ?
                             <p><b>Verification:</b> {this.state.artifact.verification}</p>
                             : null}
+                           
                             <br/>
-                            {this.state.artifact.provenance ?
-                            <p><b>Provenance:</b> {this.state.artifact.provenance}</p>
-                            : null}
-                            <br/>
+                           
                             {this.state.artifact.description ? 
                             <p><b>Description:</b> {this.state.artifact.description}</p>
                             : null}
+                         
+                            <br/>
+
+                            {this.state.artifact.provenance ?
+                            <p><b>Provenance:</b> {this.state.artifact.provenance}</p>
+                            : null}
+                         
 
                         </Row>
                        

@@ -23,7 +23,7 @@ export default class App extends Component {
     checked: {},
     currentUser: null,
     admin: false,
-    userName: null
+    userName: null,
   }
 
 

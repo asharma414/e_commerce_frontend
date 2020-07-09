@@ -36,6 +36,12 @@ export default class App extends Component {
     }
   }
 
+  refreshIndex = (orders) => {
+    let artifact_ids = orders.map(order => order.artifact_id)
+    let updated = this.state.artifacts.filter(artifact => !artifact_ids.includes(artifact.id))
+    this.setState({artifacts: updated})
+  }
+
   fetchItems = () => {
     fetch('http://localhost:3000/artifacts')
     .then(res => res.json())
@@ -54,7 +60,8 @@ export default class App extends Component {
   logoutUser = () => {
     localStorage.removeItem('id')
     localStorage.removeItem('admin')
-    this.setState({ currentUser: null, admin: false })
+    localStorage.removeItem('name')
+    this.setState({ currentUser: null, admin: false, userName: null })
   }
 
   // categoryFilter = (arr) => {
@@ -127,9 +134,15 @@ export default class App extends Component {
     return (
 
       <Router>
-        <Route path='/' render={() =>
-          this.state.currentUser ? <Redirect to='/artifacts' /> : <Redirect to='/login' />
-        } />
+        <Route path='/' render={() => {
+          if (this.state.currentUser && !this.state.admin) {
+            return <Redirect to='/artifacts' />
+          } else if (this.state.currentUser && this.state.admin) {
+            return <Redirect to='/dashboard' />
+          } else {
+            return <Redirect to='/login' />
+          }
+        } } />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
         <Route exact path='/register' render={() => <Register />} />
        
@@ -150,7 +163,7 @@ export default class App extends Component {
             {!this.state.admin ? 
         <Switch>
           <Route exact path='/cart' render={() =>
-          <Cart />}
+          <Cart refreshIndex={this.refreshIndex} />}
           />
           <Route exact path='/artifacts' render={() =>
             this.state.artifacts.length === 0 ?
@@ -175,7 +188,10 @@ export default class App extends Component {
             } />
         </Switch>: 
         <Switch>
-          </Switch>} 
+          <Route to='/dashboard' render={() => 
+          <Grid.Column></Grid.Column>
+          }/>
+        </Switch>} 
         </Grid>
       </Router>
     );

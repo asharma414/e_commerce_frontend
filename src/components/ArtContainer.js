@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ArtCard from './ArtCard'
 import Pagination from './Pagination'
-import { Container, Grid, GridRow} from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
 
 export default class ArtContainer extends Component {
 

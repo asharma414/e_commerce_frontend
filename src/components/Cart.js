@@ -33,6 +33,7 @@ class Cart extends Component {
         .then(data => {
             alert(`Your total is: ${data.total}`)
             this.setState({orders: [], total: 0.00})
+            this.props.refreshIndex(data.orders)
         })
     } 
     }

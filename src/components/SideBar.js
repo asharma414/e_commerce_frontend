@@ -75,11 +75,8 @@ class SideBar extends Component {
           </Menu.Item>
           {this.props.location.pathname === '/artifacts' ?
             <div><Menu.Item
-              name='browse'
-
-              onClick={this.handleItemClick}>
-              <Icon name='grid layout' />
-          Browse
+              name='browse'>
+          Filters
         </Menu.Item>
 
               <Accordion style={{ marginLeft: '10px' }} >

@@ -46,10 +46,10 @@ export default class App extends Component {
   }
 
   fetchItems = () => {
-    fetch('http://localhost:3000/artifacts')
+    fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + 'artifacts')
     .then(res => res.json())
     .then(artifacts => {
-      fetch('http://localhost:3000/categories')
+      fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + '/categories')
         .then(r => r.json())
         .then(categories => {
           let cat_boolean = {}
@@ -113,7 +113,7 @@ export default class App extends Component {
 
   loginUser = (e, username, password) => {
     e.preventDefault()
-    fetch('http://localhost:3000/login', {
+    fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + '/login', {
       method: 'POST',
       headers: { 'Content-type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({

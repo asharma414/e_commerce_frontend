@@ -12,7 +12,7 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3000/stats')
+        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + '/stats')
             .then(res => res.json())
             .then(data => this.setState({ totalSales: data.total_sales, salesByCategory: data.sales_by_category, salesByVerification: data.sales_by_verification }))
     }

@@ -11,7 +11,7 @@ class Cart extends Component {
     }
     
     componentDidMount() {
-        fetch(`http://localhost:3000/cart?user_id=${localStorage.getItem('id')}`)
+        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + `/cart?user_id=${localStorage.getItem('id')}`)
         .then(res => res.json())
         .then(data => {
             let total = data.reduce(function (acc, obj) { return acc + parseFloat(obj.total_price); }, 0);
@@ -22,7 +22,7 @@ class Cart extends Component {
     
     checkout = () => {
         if (this.state.orders.length > 0){
-        fetch('http://localhost:3000/checkout', {
+            fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + '/checkout', {
             method: 'POST',
             headers: { 'Content-type': 'application/json', Accept: 'application/json'},
             body: JSON.stringify({
@@ -39,7 +39,7 @@ class Cart extends Component {
     }
 
     removeOrder = (id) => {
-        fetch(`http://localhost:3000/orders/${id}`, {
+        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + `/orders/${id}`, {
             method: 'DELETE',
             headers: {'Content-type': 'application/json', Accept: 'application/json'}
         })

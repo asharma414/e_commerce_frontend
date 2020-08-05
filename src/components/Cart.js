@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Jumbotron, ListGroup } from 'react-bootstrap'
 import { Image, Loader, Button, Icon } from 'semantic-ui-react'
 import { withRouter, Link } from 'react-router-dom'
+const url = process.env.BACKEND_URL || 'http://localhost:3000'
 
 class Cart extends Component {
     
@@ -11,7 +12,7 @@ class Cart extends Component {
     }
     
     componentDidMount() {
-        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + `/cart?user_id=${localStorage.getItem('id')}`)
+        fetch( url + `/cart?user_id=${localStorage.getItem('id')}`)
         .then(res => res.json())
         .then(data => {
             let total = data.reduce(function (acc, obj) { return acc + parseFloat(obj.total_price); }, 0);
@@ -22,7 +23,7 @@ class Cart extends Component {
     
     checkout = () => {
         if (this.state.orders.length > 0){
-            fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + '/checkout', {
+            fetch( url + '/checkout', {
             method: 'POST',
             headers: { 'Content-type': 'application/json', Accept: 'application/json'},
             body: JSON.stringify({
@@ -39,7 +40,7 @@ class Cart extends Component {
     }
 
     removeOrder = (id) => {
-        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + `/orders/${id}`, {
+        fetch( url + `/orders/${id}`, {
             method: 'DELETE',
             headers: {'Content-type': 'application/json', Accept: 'application/json'}
         })

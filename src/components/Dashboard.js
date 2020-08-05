@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Jumbotron, ListGroup } from 'react-bootstrap'
 import { Image, Loader, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+const url = process.env.BACKEND_URL || 'http://localhost:3000'
 
 export default class Dashboard extends Component {
 
@@ -12,7 +13,7 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
-        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + '/stats')
+        fetch( url + '/stats')
             .then(res => res.json())
             .then(data => this.setState({ totalSales: data.total_sales, salesByCategory: data.sales_by_category, salesByVerification: data.sales_by_verification }))
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Carousel, Jumbotron, Row, Col } from 'react-bootstrap'
 import { Image, Loader, Button, List, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
+const url = process.env.BACKEND_URL || 'http://localhost:3000'
 
 
 class ArtDetail extends Component {
@@ -12,7 +13,7 @@ class ArtDetail extends Component {
     }
 
     componentDidMount() {
-        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL  : 'http://localhost:3000') + `/artifacts/${this.props.id}`)
+        fetch( url + `/artifacts/${this.props.id}`)
             .then(res => res.json())
             .then(data => {
                 let images = []
@@ -26,7 +27,7 @@ class ArtDetail extends Component {
     }
 
     addToCart = (artifact_id, user_id) => {
-        fetch((process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost:3000') + '/orders', {
+        fetch( url + '/orders', {
             method: "POST",
             headers: {
                 'Content-type': 'application/json',

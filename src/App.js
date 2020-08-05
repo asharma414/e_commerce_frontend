@@ -10,7 +10,7 @@ import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { Grid, Loader } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-const url = process.env.BACKEND_URL || 'http://localhost:3000'
+const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
 
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Carousel, Jumbotron, Row, Col } from 'react-bootstrap'
 import { Image, Loader, Button, List, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
-const url = process.env.BACKEND_URL || 'http://localhost:3000'
+const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
 
 
 class ArtDetail extends Component {

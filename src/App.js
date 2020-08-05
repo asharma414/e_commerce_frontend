@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { Grid, Loader } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+const url = process.env.BACKEND_URL || 'http://localhost:3000'
 
 
 
@@ -159,7 +160,7 @@ export default class App extends Component {
   }
 
   render() {
-
+    console.log(url)
     return (
 
       <Router>

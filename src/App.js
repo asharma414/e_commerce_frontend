@@ -47,7 +47,7 @@ export default class App extends Component {
   }
 
   fetchItems = () => {
-    fetch( url + 'artifacts')
+    fetch( url + '/artifacts')
     .then(res => res.json())
     .then(artifacts => {
       fetch( url + '/categories')
@@ -160,7 +160,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(url)
     return (
 
       <Router>

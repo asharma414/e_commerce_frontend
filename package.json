@@ -18,10 +18,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "devStart": "PORT=3001 react-scripts start",
     "server": "cd ../e_commerce_backend && rails s",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "dev": "concurrently \"npm run server\" \"npm run start\"",
+    "dev": "concurrently \"npm run server\" \"npm run devStart\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

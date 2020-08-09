@@ -34,6 +34,12 @@ export default class Login extends Component {
                         </Form.Group>  
                     </Form>
                     <div class='link-text'>
+                    <div>
+                        <div>Test Customer Login:</div>
+                        <div>Username: as; Password: 123</div>
+                        <div>Test Admin Login:</div>
+                        <div>Username: sa; Password: 123</div>
+                    </div>
                     Don't have an account? <Link to='/register'>Register here.</Link>
                     </div>
                 

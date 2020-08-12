@@ -208,7 +208,7 @@ export default class App extends Component {
 
               :
              
-                <Grid.Column style={{ marginLeft: '75px' }}>
+                <Grid.Column style={{ marginLeft: '100px' }}>
                   <ArtContainer style={{ width: '85%' }} artifacts={this.filter()} searchField={this.state.searchField} />
                 </Grid.Column>
            } />

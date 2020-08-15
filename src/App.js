@@ -27,7 +27,7 @@ export default class App extends Component {
     checkedVerifs: {},
     currentUser: null,
     admin: false,
-    userName: null,
+    userName: null
   }
 
 
@@ -56,7 +56,8 @@ export default class App extends Component {
           let cat_boolean = {}
           categories.map(category => cat_boolean[`${category.name}`] = false)
           let verif_boolean = {'unchecked': false, 'poor': false, 'adequate': false, 'good': false, 'best': false}
-          this.setState({ artifacts: artifacts, categories: categories, checkedCats: cat_boolean, checkedVerifs: verif_boolean })
+          this.setState({
+            artifacts: artifacts, categories: categories, checkedCats: cat_boolean, checkedVerifs: verif_boolean, filteredCategories: [], filteredVerifications: [], priceFilter: '10000-10000000' })
         })
     }
     )
@@ -196,7 +197,7 @@ export default class App extends Component {
             {!this.state.admin ? 
         <Switch>
           <Route exact path='/cart' render={() =>
-          <Cart refreshIndex={this.refreshIndex} />}
+          <Cart refreshIndex={this.refreshIndex}  />}
           />
           <Route exact path='/artifacts' render={() =>
             this.state.artifacts.length === 0 ?

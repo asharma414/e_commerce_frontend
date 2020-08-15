@@ -56,7 +56,7 @@ class SideBar extends Component {
             null}
 
           <Menu.Item>
-            Home
+            <Link to='/artifacts' style={{ color: '#58768d' }}>Home</Link>
           <Menu.Menu>
 
               <Menu.Item name='profile' onClick={this.handleItemClick}>

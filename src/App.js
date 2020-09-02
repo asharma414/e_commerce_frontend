@@ -138,29 +138,6 @@ export default class App extends Component {
       })
   }
 
-  registerUser = (e, firstName, lastName, username, password, confirmPassword) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      throw "Passwords must match"
-    } else  {
-      fetch(url + '/users', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          first_name: firstName,
-          last_name: lastName,
-          username: username,
-          password: password
-        })
-      })
-      .then(res => res.json())
-      .then(alert('Registration Successful'))
-    }
-  }
-
   filter = () => {
 
     let hash = [
@@ -198,7 +175,7 @@ export default class App extends Component {
         } } />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} />} />
         
-        <Route exact path='/register' render={() => <Register formSubmit={this.registerUser} />} />
+        <Route exact path='/register' render={() => <Register />} />
        
    
        

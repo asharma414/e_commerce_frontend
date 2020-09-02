@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button, Form, Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import logo from '../images/bp2.jpg'
+const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
+
 
 export default class Register extends Component {
 
@@ -17,19 +19,38 @@ export default class Register extends Component {
         this.setState({[e.target.name]: e.target.value})
     }
 
+    registerUser = (e) => {
+        e.preventDefault();
+        if (this.state.password !== this.state.confirmPassword) {
+          alert('Passwords must match!')
+        } else  {
+          fetch(url + '/users', {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+              Accept: 'application/json'
+            },
+            body: JSON.stringify({
+              first_name: this.state.firstName,
+              last_name: this.state.lastName,
+              username: this.state.username,
+              password: this.state.password
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+              alert('Registration Successful');
+              this.setState({firstName: '', lastName: '', username: '', password: '', confirmPassword: ''});
+            })
+        }
+      }
+
     render() {
         return (
             <div>
             <img class='image-component' src={logo} />
             <div className='login_container'>
-                <Form onSubmit={(e) => {
-                        try {
-                            this.props.formSubmit(e, this.state.firstName, this.state.lastName, this.state.username, this.state.password, this.state.confirmPassword);
-                            this.setState({firstName: '', lastName: '', username: '', password: '', confirmPassword: ''})
-                        } catch(e) {
-                            alert(e)
-                        }
-                }}>
+                <Form onSubmit={this.registerUser}>
                     <Form.Group>
                     <Form.Input
                             name='firstName' required onChange={this.formChange} placeholder='First Name' value={this.state.firstName} />

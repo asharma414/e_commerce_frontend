@@ -53,8 +53,10 @@ class Cart extends Component {
     
     render() {
         return (
-
+           
             <Jumbotron className='cart-jumbotron'>
+                 {this.state.orders > 0 ? 
+                 <>
                     <ListGroup >
                     {this.state.orders.map(order => <ListGroup.Item><Image src={order.artifact.primary_image} avatar/><Link to={'/artifacts/'+order.artifact.id}>{order.artifact.title}</Link> List Price: ${parseFloat(order.total_price).toFixed(2)}  
                     <Button style={{ color: '#58768d'}} floated='right' onClick={() => this.removeOrder(order.id)}>Remove</Button></ListGroup.Item>)}
@@ -69,6 +71,8 @@ class Cart extends Component {
                         <Button style={{ color: '#58768d'}} floated='right' onClick={this.checkout}>Checkout</Button>
                         <Button style={{ color: '#58768d'}} floated='left' onClick={() => this.props.history.goBack()}>Back</Button>
                     </div>
+                </>
+                    : 'You have no items in your cart'}
             </Jumbotron>
         )
     }

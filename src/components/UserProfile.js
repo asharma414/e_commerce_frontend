@@ -7,9 +7,12 @@ class UserProfile extends Component {
         return (
             <div>
                 <Jumbotron className='cart-jumbotron'>
-                    Hello, {this.props.userName}!
-
-                    
+                   <span style={{fontSize: '18px', fontWeight: '900'}}> Welcome, {this.props.userName}!</span>
+                    <br />
+                    <br />
+                    <strong>Address:</strong> {this.props.address}
+                    <br />
+                    <strong>Purchase History:</strong>
 
                 </Jumbotron>
 

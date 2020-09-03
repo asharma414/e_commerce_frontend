@@ -8,6 +8,7 @@ import Register from './components/Register'
 import Cart from './components/Cart'
 import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
+import About from './components/About'
 import { Grid, Loader } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
@@ -27,15 +28,16 @@ export default class App extends Component {
     checkedVerifs: {},
     currentUser: null,
     admin: false,
-    userName: null
+    userName: null, 
+    address: ''
   }
 
 
   componentDidMount() {
     // let params = '?'
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
-    if (localStorage.getItem('id') && localStorage.getItem('admin') && localStorage.getItem('name'))  {
-      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false, userName: localStorage.getItem('name')})
+    if (localStorage.getItem('id') && localStorage.getItem('admin') && localStorage.getItem('name') && localStorage.getItem('address'))  {
+      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false, userName: localStorage.getItem('name'), address: localStorage.getItem('address')})
       this.fetchItems()
     }
   }
@@ -120,7 +122,7 @@ export default class App extends Component {
       headers: { 'Content-type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         username: username,
-        password: password
+        password: password, 
       })
     })
       .then(res => res.json())
@@ -129,7 +131,8 @@ export default class App extends Component {
         localStorage.setItem('id', data.id)
         localStorage.setItem('admin', data.admin)
         localStorage.setItem('name', data.first_name)
-        this.setState({ currentUser: parseInt(data.id), userName: data.first_name, admin: data.admin})
+        localStorage.setItem('address', data.address)
+        this.setState({ currentUser: parseInt(data.id), userName: data.first_name, admin: data.admin, address: data.address})
 
         this.fetchItems()
       } else {
@@ -199,6 +202,16 @@ export default class App extends Component {
           <Route exact path='/cart' render={() =>
           <Cart refreshIndex={this.refreshIndex}  />}
           />
+
+          <Route exact path='/profile' render={() =>
+          <UserProfile 
+          userName = {this.state.userName}
+          address = {this.state.address}
+          />} />
+
+          <Route exact path='/about' render={() =>
+          <About/>} />
+
           <Route exact path='/artifacts' render={() =>
             this.state.artifacts.length === 0 ?
             

@@ -11,6 +11,9 @@ export default class Register extends Component {
         firstName: '',
         lastName: '',
         username: '',
+        address: '',
+        city: '', 
+        st: '',
         password: '',
         confirmPassword: ''
     }
@@ -34,13 +37,14 @@ export default class Register extends Component {
               first_name: this.state.firstName,
               last_name: this.state.lastName,
               username: this.state.username,
-              password: this.state.password
+              password: this.state.password,
+              address: this.state.address + ', ' + this.state.city + ', ' + this.state.st 
             })
           })
           .then(res => res.json())
           .then(data => {
               alert('Registration Successful');
-              this.setState({firstName: '', lastName: '', username: '', password: '', confirmPassword: ''});
+              this.setState({firstName: '', lastName: '', username: '', password: '', confirmPassword: '', address: '', city: '', st: ''});
             })
         }
       }
@@ -56,6 +60,14 @@ export default class Register extends Component {
                             name='firstName' required onChange={this.formChange} placeholder='First Name' value={this.state.firstName} />
                     <Form.Input
                             name='lastName' required onChange={this.formChange} placeholder='Last Name' value={this.state.lastName} />
+                    <Form.Input
+                            name='address' required onChange={this.formChange} placeholder='Street Address' value={this.state.address} />
+                    <Form.Input
+                            name='city' required onChange={this.formChange} placeholder='City' value={this.state.city} />
+                    <Form.Input
+                            name='st' required onChange={this.formChange} placeholder='State' value={this.state.st} />
+                    </Form.Group>
+                    <Form.Group>
                     <Form.Input
                             name='username' required onChange={this.formChange} placeholder='Username' value={this.state.username} />
                     <Form.Input

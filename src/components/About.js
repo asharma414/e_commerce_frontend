@@ -2,21 +2,17 @@ import React, { Component } from 'react'
 import { Jumbotron } from 'react-bootstrap'
 import { withRouter, Link } from 'react-router-dom'
 
-class UserProfile extends Component {
+class About extends Component {
     render() {
         return (
             <div>
                 <Jumbotron className='cart-jumbotron'>
-                    Hello, {this.props.userName}!
-
-                    
+                Something descriptive about this site
 
                 </Jumbotron>
-
             </div>
         )
     }
 }
 
-export default withRouter(UserProfile)
-
+export default withRouter(About)

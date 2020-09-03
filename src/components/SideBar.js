@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon, Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
+import { Input, Menu, Accordion, Form, Radio, Checkbox } from 'semantic-ui-react'
 import logo from '../images/e-licit.png'
 import { withRouter, Link } from 'react-router-dom';
 
@@ -8,6 +8,10 @@ class SideBar extends Component {
   state = {
     activeIndexes: [],
     value: '10000-10000000'
+  }
+
+  resetPriceFilter () {
+    this.setState({value: '10000-10000000'})
   }
 
   handleChange = (e, { value }) => {
@@ -41,7 +45,9 @@ class SideBar extends Component {
 
         <Menu className='ui vertical menu' id='left-column'>
 
-          <Menu.Item name='logout' onClick={this.props.logout}>
+          <Menu.Item name='logout' onClick={() => {
+            this.resetPriceFilter()
+            this.props.logout()}}>
             Logout, {this.props.userName}
           </Menu.Item>
 

@@ -24,7 +24,7 @@ export default class ArtContainer extends Component {
         if (this.props.artifacts.length > 0) {
             return (
                 <div>
-                    <Grid columns={4} relaxed style={{ paddingRight: 0 }}>
+                    <Grid columns={4} style={{marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
                         {currentArtifacts.map(artifact =>
                             <Grid.Column mobile={16} tablet={8} computer={4}><ArtCard key={artifact.id} artifact={artifact} /></Grid.Column>)}
                     </Grid>

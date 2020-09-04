@@ -183,9 +183,8 @@ export default class App extends Component {
        
    
        
-        <Grid style={{ marginTop: '10px', marginRight: '-500px' }} columns={2}>
-                <Grid.Column style={{ width: '15%' }}>
-                  <SideBar
+       
+                  <SideBar 
                     userName={this.state.userName}
                     logout={this.logoutUser}
                     categories={this.state.categories}
@@ -197,9 +196,10 @@ export default class App extends Component {
                     checkedVerifs={this.state.checkedVerifs}
                     toggleVerifs={this.toggleVerification}
                   />
-                </Grid.Column>
+               
             {!this.state.admin ? 
-        <Switch>
+        <Switch >
+          <div style={{marginLeft: '200px'}}>
           <Route exact path='/cart' render={() =>
           <Cart refreshIndex={this.refreshIndex}  />}
           />
@@ -217,35 +217,34 @@ export default class App extends Component {
           <Route exact path='/artifacts' render={() =>
             this.state.artifacts.length === 0 ?
             
-                <Grid.Column style={{ marginLeft: '20px' }}>
-                  <Loader active inline='centered' />
+              
+                <>
+                  <Loader active style={{marginTop: '10px'}} inline='centered' />
                   <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
-                </Grid.Column>
+           
+                </>
 
               :
-             
-                <Grid.Column style={{ marginLeft: '100px' }}>
-                  <ArtContainer style={{ width: '85%' }} artifacts={this.filter()} searchField={this.state.searchField} />
-                </Grid.Column>
+             <>
+            
+                  <ArtContainer artifacts={this.filter()} searchField={this.state.searchField} />
+               
+                </>
            } />
 
           <Route exact path='/artifacts/:id' render={(props) =>
     
-              <Grid.Column>
-                <ArtDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
-              </Grid.Column>
+                <ArtDetail currentUser={this.state.currentUser} id={props.match.params.id} />
             } />
+            </div>
         </Switch>: 
         <Switch>
           <Route to='/dashboard' render={() => 
-          <Grid.Column>
             <Dashboard 
             userName={this.state.userName}
             />
-          </Grid.Column>
           }/>
         </Switch>} 
-        </Grid>
       </Router>
     );
   }

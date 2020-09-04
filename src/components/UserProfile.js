@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Jumbotron, ListGroup } from 'react-bootstrap'
 import { withRouter, Link } from 'react-router-dom'
-import { Image } from 'semantic-ui-react'
+import { Image, Grid } from 'semantic-ui-react'
+
 const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
 
 class UserProfile extends Component {
@@ -18,8 +19,8 @@ class UserProfile extends Component {
 
     render() {
         return (
-            <div>
-                <Jumbotron className='cart-jumbotron'>
+            // <Grid style={{marginLeft: '200px'}}>
+                <Jumbotron  className='cart-jumbotron'>
                    <span style={{fontSize: '18px', fontWeight: '900'}}> Welcome, {this.props.userName}!</span>
                     <br />
                     <br />
@@ -34,7 +35,7 @@ class UserProfile extends Component {
                     </ListGroup>
                 </Jumbotron>
 
-            </div>
+            // </Grid>
         )
     }
 }

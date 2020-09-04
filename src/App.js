@@ -29,7 +29,8 @@ export default class App extends Component {
     currentUser: null,
     admin: false,
     userName: null, 
-    address: ''
+    address: '',
+    cart: parseInt(localStorage.getItem('cart'))
   }
 
 

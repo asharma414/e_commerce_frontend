@@ -10,6 +10,10 @@ class SideBar extends Component {
     value: '10000-10000000'
   }
 
+  componentDidMount() {
+    if (!localStorage.getItem('cart')) localStorage.setItem('cart', '0')
+  }
+
   resetPriceFilter () {
     this.setState({value: '10000-10000000'})
   }
@@ -76,7 +80,7 @@ class SideBar extends Component {
             </Menu.Item>
 
               <Menu.Item name='cart' onClick={this.handleItemClick}>
-                <Link to='/cart' style={{ color: '#58768d' }}>Cart</Link>
+          <Link to='/cart' style={{ color: '#58768d' }}>Cart {localStorage.getItem('cart') !== '0' ? '(' + localStorage.getItem('cart') + ')' : null}</Link>
               </Menu.Item>
 
             </Menu.Menu>

@@ -207,6 +207,7 @@ export default class App extends Component {
           <UserProfile 
           userName = {this.state.userName}
           address = {this.state.address}
+          currentUser={this.state.currentUser}
           />} />
 
           <Route exact path='/about' render={() =>

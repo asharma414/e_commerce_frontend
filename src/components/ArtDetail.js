@@ -215,9 +215,9 @@ class ArtDetail extends Component {
                         </Row>
                        
                         <div>
-                            {this.state.artifact.orders.find(order => order.user_id === this.props.currentUser) ? <Button floated='right'>Added to Cart</Button> : 
-                            <Button floated='right' style={{ color: '#58768d'}} onClick={() => this.addToCart(this.state.artifact.id, this.props.currentUser)}>Add to Cart</Button>}
-                            <Button floated='right' style={{ color: '#58768d'}} onClick={this.bidItem}>Bid</Button>
+                            {!this.state.artifact.sold ? this.state.artifact.orders.find(order => order.user_id === this.props.currentUser) ? <Button floated='right'>Added to Cart</Button> : 
+                            <Button floated='right' style={{ color: '#58768d'}} onClick={() => this.addToCart(this.state.artifact.id, this.props.currentUser)}>Add to Cart</Button> : <Button floated='right'>Sold</Button>} 
+                            {/* <Button floated='right' style={{ color: '#58768d'}} onClick={this.bidItem}>Bid</Button> */}
                         </div>
                         <br/>
                         <br/>

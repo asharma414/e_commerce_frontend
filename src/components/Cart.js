@@ -55,7 +55,7 @@ class Cart extends Component {
         return (
            
             <Jumbotron className='cart-jumbotron'>
-                 {this.state.orders > 0 ? 
+                 {this.state.orders.length > 0 ? 
                  <>
                     <ListGroup >
                     {this.state.orders.map(order => <ListGroup.Item><Image src={order.artifact.primary_image} avatar/><Link to={'/artifacts/'+order.artifact.id}>{order.artifact.title}</Link> List Price: ${parseFloat(order.total_price).toFixed(2)}  

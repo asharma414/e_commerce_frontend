@@ -27,11 +27,13 @@ class UserProfile extends Component {
                     <strong>Address:</strong> {this.props.address}
                     <br />
                     <br />
-                    <strong>Purchase History:</strong>
+                    <strong>Your Purchase History:</strong>
                     <br />
                     <br />
                     <ListGroup style={{ overflow: 'auto', maxHeight: '250px' }}>
-                    {this.state.orders.map(order => <ListGroup.Item><Image src={order.primary_image} avatar/><Link to={'/artifacts/'+order.id}>{order.title}</Link> List Price: ${parseFloat(order.list_price).toFixed(2)}</ListGroup.Item>)}
+                    {this.state.orders.map(order => <ListGroup.Item><Image src={order.primary_image} avatar/><Link to={'/artifacts/'+order.id}>{order.title}</Link> 
+                    <div style={{marginLeft: '35px'}}><strong>List Price:</strong> ${parseFloat(order.list_price).toFixed(2)}</div>
+                    </ListGroup.Item>)}
                     </ListGroup>
                 </Jumbotron>
 

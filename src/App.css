@@ -76,17 +76,20 @@
 
 .cart-jumbotron {
   border:1px solid #000000;
-  width: 700px;
+  width: flex;
   margin-left: 35px;
   margin-top: 15px;
+  margin-right: 30px;
 
  
 }
 
 .artcard-jumbotron {
   border:1px solid #000000;
-  width: 700px;
-  margin-left: 20px;
+  width: flex;
+  margin-left: 35px;
+  margin-top: 15px;
+  margin-right: 30px;
 }
 
 .page-item {

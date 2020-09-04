@@ -219,7 +219,7 @@ export default class App extends Component {
             
               
                 <>
-                  <Loader active style={{marginTop: '10px'}} inline='centered' />
+                  <Loader active style={{marginTop: '20px'}} inline='centered' />
                   <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
            
                 </>

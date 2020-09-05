@@ -33,6 +33,7 @@ class UserProfile extends Component {
                     <ListGroup style={{ overflow: 'auto', maxHeight: '250px' }}>
                     {this.state.orders.map(order => <ListGroup.Item><Image src={order.primary_image} avatar/><Link to={'/artifacts/'+order.id}>{order.title}</Link> 
                     <div style={{marginLeft: '35px'}}><strong>List Price:</strong> ${parseFloat(order.list_price).toFixed(2)}</div>
+                    <div style={{marginLeft: '35px'}}><strong>Purchase Date:</strong> {new Date(order.updated_at).toLocaleString()}</div>
                     </ListGroup.Item>)}
                     </ListGroup>
                 </Jumbotron>

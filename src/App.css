@@ -71,7 +71,6 @@
 }
 
 .link-text {
-  
   color: #e5e4f2;
   
   
@@ -101,5 +100,14 @@
 
 .page-item{
   color: #58768d;
+}
+
+.Change:hover {
+  color: blue !important;
+  text-decoration: underline;
+}
+
+.Change {
+  color: blue;
 }
 

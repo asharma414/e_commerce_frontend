@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form, Input } from 'semantic-ui-react'
+import { Button, Form, Modal} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import logo from '../images/bp2.jpg'
 
@@ -38,7 +38,17 @@ export default class Login extends Component {
                         <div>Guest Login:</div>
                         <div>Username: guest; Password: 123</div>
                     </div>
-                    Don't have an account? <Link to='/register'>Register here.</Link>
+                    Don't have an account? 
+                
+                        <Modal as={Form}
+                        style={{ overflow: 'auto', position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
+                        trigger={<span className= 'Change'
+                            // onClick={() => this.setState({ createModal: true })}
+                            > Register here.</span>}> 
+                            
+                            
+                            Test
+                            </Modal>
                     </div>
                 
                 </div>

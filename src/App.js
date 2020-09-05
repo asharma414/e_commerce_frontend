@@ -28,17 +28,23 @@ export default class App extends Component {
     checkedVerifs: {},
     currentUser: null,
     admin: false,
-    userName: null, 
+    userName: null,
     address: '',
-    cart: parseInt(localStorage.getItem('cart'))
+    cart: [],
+    cartTotal: 0,
   }
-
 
   componentDidMount() {
     // let params = '?'
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
-    if (localStorage.getItem('id') && localStorage.getItem('admin') && localStorage.getItem('name') && localStorage.getItem('address'))  {
-      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false, userName: localStorage.getItem('name'), address: localStorage.getItem('address')})
+    if (localStorage.getItem('id') && localStorage.getItem('admin') && localStorage.getItem('name') && localStorage.getItem('address')) {
+      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false, userName: localStorage.getItem('name'), address: localStorage.getItem('address') })
+      fetch(url + `/cart?user_id=${localStorage.getItem('id')}`)
+        .then(res => res.json())
+        .then(data => {
+          let total = data.reduce(function (acc, obj) { return acc + parseFloat(obj.total_price); }, 0);
+          this.setState({ cart: data, cartTotal: total.toFixed(2) })
+        })
       this.fetchItems()
     }
   }
@@ -46,31 +52,68 @@ export default class App extends Component {
   refreshIndex = (orders) => {
     let artifact_ids = orders.map(order => order.artifact_id)
     let updated = this.state.artifacts.filter(artifact => !artifact_ids.includes(artifact.id))
-    this.setState({artifacts: updated})
+    this.setState({ artifacts: updated })
   }
 
   fetchItems = () => {
-    fetch( url + '/artifacts')
-    .then(res => res.json())
-    .then(artifacts => {
-      fetch( url + '/categories')
-        .then(r => r.json())
-        .then(categories => {
-          let cat_boolean = {}
-          categories.map(category => cat_boolean[`${category.name}`] = false)
-          let verif_boolean = {'unchecked': false, 'poor': false, 'adequate': false, 'good': false, 'best': false}
-          this.setState({
-            artifacts: artifacts, categories: categories, checkedCats: cat_boolean, checkedVerifs: verif_boolean, filteredCategories: [], filteredVerifications: [], priceFilter: '10000-10000000' })
-        })
-    }
-    )
+    fetch(url + '/artifacts')
+      .then(res => res.json())
+      .then(artifacts => {
+        fetch(url + '/categories')
+          .then(r => r.json())
+          .then(categories => {
+            let cat_boolean = {}
+            categories.map(category => cat_boolean[`${category.name}`] = false)
+            let verif_boolean = { 'unchecked': false, 'poor': false, 'adequate': false, 'good': false, 'best': false }
+            this.setState({
+              artifacts: artifacts, categories: categories, checkedCats: cat_boolean, checkedVerifs: verif_boolean, filteredCategories: [], filteredVerifications: [], priceFilter: '10000-10000000'
+            })
+          })
+      }
+      )
+  }
+
+  setCart = order => {
+    let newTotal = parseFloat(this.state.cartTotal) + parseFloat(order.total_price)
+    this.setState({ cart: [...this.state.cart, order], cartTotal: newTotal.toFixed(2) })
   }
 
   logoutUser = () => {
     localStorage.removeItem('id')
     localStorage.removeItem('admin')
     localStorage.removeItem('name')
+    localStorage.removeItem('address')
     this.setState({ currentUser: null, admin: false, userName: null })
+  }
+
+  checkout = () => {
+    if (this.state.cart.length > 0) {
+      fetch(url + '/checkout', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          orders: this.state.cart
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert(`Your total is: ${data.total}`)
+          this.setState({ cart: [], cartTotal: 0.00 })
+          this.refreshIndex(data.orders)
+        })
+    }
+  }
+
+  removeOrder = (id) => {
+    fetch(url + `/orders/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json', Accept: 'application/json' }
+    })
+      .then(res => res.json())
+      .then(data => {
+        let newTotal = parseFloat(this.state.cartTotal) - parseFloat(data.total_price)
+        this.setState({ cartTotal: newTotal.toFixed(2), cart: this.state.cart.filter(order => order.id !== data.id) })
+      })
   }
 
   // categoryFilter = (arr) => {
@@ -118,27 +161,32 @@ export default class App extends Component {
 
   loginUser = (e, username, password) => {
     e.preventDefault()
-    fetch( url + '/login', {
+    fetch(url + '/login', {
       method: 'POST',
       headers: { 'Content-type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         username: username,
-        password: password, 
+        password: password,
       })
     })
       .then(res => res.json())
       .then(data => {
         if (!data.error) {
-        localStorage.setItem('id', data.id)
-        localStorage.setItem('admin', data.admin)
-        localStorage.setItem('name', data.first_name)
-        localStorage.setItem('address', data.address)
-        this.setState({ currentUser: parseInt(data.id), userName: data.first_name, admin: data.admin, address: data.address})
-
-        this.fetchItems()
-      } else {
-        alert(data.message)
-      }
+          localStorage.setItem('id', data.id)
+          localStorage.setItem('admin', data.admin)
+          localStorage.setItem('name', data.first_name)
+          localStorage.setItem('address', data.address)
+          this.setState({ currentUser: parseInt(data.id), userName: data.first_name, admin: data.admin, address: data.address })
+          this.fetchItems()
+          fetch(url + `/cart?user_id=${localStorage.getItem('id')}`)
+            .then(res => res.json())
+            .then(cartData => {
+              let total = cartData.reduce(function (acc, obj) { return acc + parseFloat(obj.total_price); }, 0);
+              this.setState({ cart: cartData, cartTotal: total.toFixed(2) })
+            })
+        } else {
+          alert(data.message)
+        }
       })
   }
 
@@ -176,75 +224,76 @@ export default class App extends Component {
           } else {
             return <Redirect to='/login' />
           }
-        } } />
+        }} />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} />} />
-        
+
         <Route exact path='/register' render={() => <Register />} />
-       
-   
-       
-       
-                  <SideBar 
-                    userName={this.state.userName}
-                    logout={this.logoutUser}
-                    categories={this.state.categories}
-                    handleChange={this.changeSearchField}
-                    handlePrice={this.setPriceFilter}
-                    handleCategories={this.categoryFilter}
-                    checkedCats={this.state.checkedCats}
-                    toggleCategory={this.toggleCategory}
-                    checkedVerifs={this.state.checkedVerifs}
-                    toggleVerifs={this.toggleVerification}
-                  />
-               
-            {!this.state.admin ? 
-        <Switch >
-          <div style={{marginLeft: '200px'}}>
-          <Route exact path='/cart' render={() =>
-          <Cart refreshIndex={this.refreshIndex}  />}
-          />
 
-          <Route exact path='/profile' render={() =>
-          <UserProfile 
-          userName = {this.state.userName}
-          address = {this.state.address}
-          currentUser={this.state.currentUser}
-          />} />
 
-          <Route exact path='/about' render={() =>
-          <About/>} />
 
-          <Route exact path='/artifacts' render={() =>
-            this.state.artifacts.length === 0 ?
-            
-              
-                <>
-                  <Loader active style={{marginTop: '20px'}} inline='centered' />
-                  <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
-           
-                </>
 
-              :
-             <>
-            
-                  <ArtContainer artifacts={this.filter()} searchField={this.state.searchField} />
-               
-                </>
-           } />
+        <SideBar
+          userName={this.state.userName}
+          logout={this.logoutUser}
+          categories={this.state.categories}
+          handleChange={this.changeSearchField}
+          handlePrice={this.setPriceFilter}
+          handleCategories={this.categoryFilter}
+          checkedCats={this.state.checkedCats}
+          toggleCategory={this.toggleCategory}
+          checkedVerifs={this.state.checkedVerifs}
+          toggleVerifs={this.toggleVerification}
+          cart={this.state.cart}
+        />
 
-          <Route exact path='/artifacts/:id' render={(props) =>
-    
-                <ArtDetail currentUser={this.state.currentUser} id={props.match.params.id} />
-            } />
+        {!this.state.admin ?
+          <Switch >
+            <div style={{ marginLeft: '200px' }}>
+              <Route exact path='/cart' render={() =>
+                <Cart checkout={this.checkout} removeOrder={this.removeOrder} orders={this.state.cart} total={this.state.cartTotal} />}
+              />
+
+              <Route exact path='/profile' render={() =>
+                <UserProfile
+                  userName={this.state.userName}
+                  address={this.state.address}
+                  currentUser={this.state.currentUser}
+                />} />
+
+              <Route exact path='/about' render={() =>
+                <About />} />
+
+              <Route exact path='/artifacts' render={() =>
+                this.state.artifacts.length === 0 ?
+
+
+                  <>
+                    <Loader active style={{ marginTop: '20px' }} inline='centered' />
+                    <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
+
+                  </>
+
+                  :
+                  <>
+
+                    <ArtContainer artifacts={this.filter()} searchField={this.state.searchField} />
+
+                  </>
+              } />
+
+              <Route exact path='/artifacts/:id' render={(props) =>
+
+                <ArtDetail currentUser={this.state.currentUser} id={props.match.params.id} setCart={this.setCart} />
+              } />
             </div>
-        </Switch>: 
-        <Switch>
-          <Route to='/dashboard' render={() => 
-            <Dashboard 
-            userName={this.state.userName}
-            />
-          }/>
-        </Switch>} 
+          </Switch> :
+          <Switch>
+            <Route to='/dashboard' render={() =>
+              <Dashboard
+                userName={this.state.userName}
+              />
+            } />
+          </Switch>}
       </Router>
     );
   }

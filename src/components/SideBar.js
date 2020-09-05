@@ -80,7 +80,7 @@ class SideBar extends Component {
             </Menu.Item>
 
               <Menu.Item name='cart' onClick={this.handleItemClick}>
-          <Link to='/cart' style={{ color: '#58768d' }}>Cart {localStorage.getItem('cart') !== '0' ? '(' + localStorage.getItem('cart') + ')' : null}</Link>
+          <Link to='/cart' style={{ color: '#58768d' }}>Cart {this.props.cart.length > 0 ? '(' + this.props.cart.length + ')' : null}</Link>
               </Menu.Item>
 
             </Menu.Menu>

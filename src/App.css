@@ -50,7 +50,7 @@
 
 .login_container {
   width: 300px;
-  align-content: left;
+  position: auto;
   margin-top: 10px; 
   margin-left: 10px;
 }
@@ -59,14 +59,15 @@
   /* The image used */
 
   /* Full height */ 
-  height: 75vh;
+  /* height: 75vh; */
   width: 100%;
+  border:1px solid #000000;
   
 
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  /* background-size: 100%; */
 }
 
 .link-text {

@@ -35,7 +35,7 @@ export default class ArtContainer extends Component {
             )
         } else {
             return (
-                <div style={{ textAlign: 'center', color: '#a8a7b9' }}>No Results Found</div>
+                <div style={{ textAlign: 'center', color: '#a8a7b9', marginTop: '20px'}}>No Results Found</div>
             )
         }
 

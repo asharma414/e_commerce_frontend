@@ -14,7 +14,7 @@ class About extends Component {
                 <br />
                 <br />
                 In recent years, some European and North American museums have started to reconsider the history and provenance of
-                their Near Eastern and African collections, including but not limited to <a style={{ color: '#58768d' }} 
+                their Near Eastern and African collections, such as <a style={{ color: '#58768d' }} 
                 href= 'https://www.theatlantic.com/international/archive/2018/03/iraq-war-archeology-invasion/555200/' rel="noopener noreferrer" target='_blank'>archaeological artifacts from Iraq</a> or <a style={{ color: '#58768d' }} 
                 href= 'https://hyperallergic.com/456942/europol-seizure-of-looted-antiquities/' rel="noopener noreferrer" target='_blank'>looted antiquities</a>. 
                 With E-licit Art, we think it's important for museum-goers to imagine the behind-the-scenes <i>trading</i> and <i>acquisition</i> of artworks, which includes their complex histories, 

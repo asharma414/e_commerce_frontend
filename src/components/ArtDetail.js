@@ -46,22 +46,21 @@ class ArtDetail extends Component {
             })
     }
 
-    bidItem = (e) => {
-        console.log('bidding')
-    }
+    // bidItem = (e) => {
+    //     console.log('bidding')
+    // }
 
     handleSlide = () => {
         this.setState({ index: (this.state.index + 1) % this.state.images.length })
     }
 
-    handleBid = () =>
-        this.setState((prevState) => ({ active: !prevState.active }))
+    // handleBid = () =>
+    //     this.setState((prevState) => ({ active: !prevState.active }))
 
     handleBuy = () =>
         this.setState((prevState) => ({ active: !prevState.active }))
 
     render() {
-        const { active } = this.state
         if (!this.state.artifact) {
             return (
                 <div>

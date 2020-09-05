@@ -4,11 +4,10 @@ import ArtContainer from './components/ArtContainer'
 import SideBar from './components/SideBar'
 import ArtDetail from './components/ArtDetail'
 import Login from './components/Login'
-import Register from './components/Register'
 import Cart from './components/Cart'
 import UserProfile from './components/UserProfile'
 import About from './components/About'
-import { Grid, Loader } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
 
@@ -30,7 +29,7 @@ export default class App extends Component {
     userName: null,
     address: '',
     cart: [],
-    cartTotal: 0,
+    cartTotal: 0
   }
 
   componentDidMount() {
@@ -223,12 +222,6 @@ export default class App extends Component {
           }
         }} />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} />} />
-
-        <Route exact path='/register' render={() => <Register />} />
-
-
-
-
         <SideBar
           userName={this.state.userName}
           logout={this.logoutUser}

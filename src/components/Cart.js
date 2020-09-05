@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Jumbotron, ListGroup } from 'react-bootstrap'
-import { Image, Loader, Button, Icon } from 'semantic-ui-react'
+import { Image, Button } from 'semantic-ui-react'
 import { withRouter, Link } from 'react-router-dom'
-const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
 
 class Cart extends Component {
     
@@ -12,7 +11,7 @@ class Cart extends Component {
             <Jumbotron className='cart-jumbotron'>
                  {this.props.orders.length > 0 ? 
                  <>
-                    <ListGroup >
+                    <ListGroup style={{ overflow: 'auto', maxHeight: '250px' }}>
                     {this.props.orders.map(order => <ListGroup.Item><Image src={order.artifact.primary_image} avatar/><Link to={'/artifacts/'+order.artifact.id}>{order.artifact.title}</Link> List Price: ${parseFloat(order.total_price).toFixed(2)}  
                     <Button style={{ color: '#58768d'}} floated='right' onClick={() => this.props.removeOrder(order.id)}>Remove</Button></ListGroup.Item>)}
                     </ListGroup>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Jumbotron } from 'react-bootstrap'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 class About extends Component {
     render() {

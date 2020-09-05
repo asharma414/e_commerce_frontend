@@ -49,10 +49,10 @@
 }
 
 .login_container {
-  width: 300px;
-  position: auto;
-  margin-top: 10px; 
-  margin-left: 10px;
+  width: fit-content;
+  margin: auto;
+  padding-top: 15px;
+  text-align: center;
 }
 
 .image-component {
@@ -71,8 +71,10 @@
 }
 
 .link-text {
-  margin-left: 5px;
+  
   color: #e5e4f2;
+  
+  
 }
 
 .cart-jumbotron {

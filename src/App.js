@@ -6,7 +6,6 @@ import ArtDetail from './components/ArtDetail'
 import Login from './components/Login'
 import Register from './components/Register'
 import Cart from './components/Cart'
-import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import About from './components/About'
 import { Grid, Loader } from 'semantic-ui-react'
@@ -217,10 +216,8 @@ export default class App extends Component {
 
       <Router>
         <Route path='/' render={() => {
-          if (this.state.currentUser && !this.state.admin) {
+          if (this.state.currentUser) {
             return <Redirect to='/artifacts' />
-          } else if (this.state.currentUser && this.state.admin) {
-            return <Redirect to='/dashboard' />
           } else {
             return <Redirect to='/login' />
           }
@@ -246,7 +243,7 @@ export default class App extends Component {
           cart={this.state.cart}
         />
 
-        {!this.state.admin ?
+       
           <Switch >
             <div style={{ marginLeft: '200px' }}>
               <Route exact path='/cart' render={() =>
@@ -258,6 +255,7 @@ export default class App extends Component {
                   userName={this.state.userName}
                   address={this.state.address}
                   currentUser={this.state.currentUser}
+                  admin={this.state.admin}
                 />} />
 
               <Route exact path='/about' render={() =>
@@ -286,14 +284,7 @@ export default class App extends Component {
                 <ArtDetail currentUser={this.state.currentUser} id={props.match.params.id} setCart={this.setCart} />
               } />
             </div>
-          </Switch> :
-          <Switch>
-            <Route to='/dashboard' render={() =>
-              <Dashboard
-                userName={this.state.userName}
-              />
-            } />
-          </Switch>}
+          </Switch> 
       </Router>
     );
   }

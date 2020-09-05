@@ -28,10 +28,11 @@ export default class Login extends Component {
                       
                         <Form.Input
                             name='password' required onChange={this.formChange} placeholder='Password' value={this.state.password} type='password' />
-            
-                        <Form.Button basic color='ui grey inverted button' type='submit' content='Login'/>
-                        </Form.Group>  
+                        </Form.Group> 
+                        <br />
+                        <Button basic color='ui grey inverted button' type='submit' content='Login'/>
                     </Form>
+                    <br />
                     <div class='link-text'>
                     <div>
                         <div>Guest Login:</div>

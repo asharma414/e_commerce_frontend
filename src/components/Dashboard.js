@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Jumbotron, ListGroup } from 'react-bootstrap'
-import { Image, Loader, Button, Icon } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Jumbotron } from 'react-bootstrap'
+// import { Image, Loader, Button, Icon } from 'semantic-ui-react'
+// import { Link } from 'react-router-dom'
 const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'
 
 export default class Dashboard extends Component {

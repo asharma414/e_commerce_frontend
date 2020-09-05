@@ -42,7 +42,7 @@ class ArtDetail extends Component {
                 let updatedArtifact = { ...this.state.artifact }
                 updatedArtifact['orders'] = [...updatedArtifact['orders'], data]
                 this.setState({ artifact: updatedArtifact })
-                this.props.setCart(parseInt(localStorage.getItem('cart'))+1)
+                this.props.setCart(data)
             })
     }
 

@@ -60,12 +60,16 @@ export default class Register extends Component {
                             name='firstName' required onChange={this.formChange} placeholder='First Name' value={this.state.firstName} />
                     <Form.Input
                             name='lastName' required onChange={this.formChange} placeholder='Last Name' value={this.state.lastName} />
+                    
+                    </Form.Group>
+                    <Form.Group>
                     <Form.Input
                             name='address' required onChange={this.formChange} placeholder='Street Address' value={this.state.address} />
                     <Form.Input
                             name='city' required onChange={this.formChange} placeholder='City' value={this.state.city} />
                     <Form.Input
                             name='st' required onChange={this.formChange} placeholder='State' value={this.state.st} />
+                    
                     </Form.Group>
                     <Form.Group>
                     <Form.Input

@@ -84,14 +84,6 @@
  
 }
 
-.artcard-jumbotron {
-  border:1px solid #000000;
-  width: flex;
-  margin-left: 35px;
-  margin-top: 15px;
-  margin-right: 30px;
-}
-
 .page-item {
   cursor: pointer;
 }

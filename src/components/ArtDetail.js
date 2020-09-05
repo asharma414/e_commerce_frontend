@@ -42,7 +42,7 @@ class ArtDetail extends Component {
                 let updatedArtifact = { ...this.state.artifact }
                 updatedArtifact['orders'] = [...updatedArtifact['orders'], data]
                 this.setState({ artifact: updatedArtifact })
-                localStorage.setItem('cart', parseInt(localStorage.getItem('cart')) + 1)
+                this.props.setCart(parseInt(localStorage.getItem('cart'))+1)
             })
     }
 
@@ -72,7 +72,7 @@ class ArtDetail extends Component {
         } else {
             return (
                 <div>
-                    <Jumbotron className='artcard-jumbotron'>
+                    <Jumbotron className='cart-jumbotron'>
                         <Row>
                             <Col>
                                 {this.state.images.length > 1 ?

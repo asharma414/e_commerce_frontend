@@ -17,6 +17,7 @@ class Cart extends Component {
         .then(data => {
             let total = data.reduce(function (acc, obj) { return acc + parseFloat(obj.total_price); }, 0);
             this.setState({orders: data, total: total.toFixed(2)})
+            this.props.setCart(data.length)
         })
     }
 
@@ -35,6 +36,7 @@ class Cart extends Component {
             alert(`Your total is: ${data.total}`)
             this.setState({orders: [], total: 0.00})
             this.props.refreshIndex(data.orders)
+            this.props.setCart(0)
         })
     } 
     }
@@ -48,6 +50,7 @@ class Cart extends Component {
         .then(data => {
             let newTotal = parseFloat(this.state.total) - parseFloat(data.total_price)
             this.setState({total: newTotal.toFixed(2), orders: this.state.orders.filter(order => order.id !== data.id)})
+            this.props.setCart(parseInt(localStorage.getItem('cart'))-1)
         })
     }
     

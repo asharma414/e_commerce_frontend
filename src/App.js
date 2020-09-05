@@ -33,7 +33,6 @@ export default class App extends Component {
     cart: parseInt(localStorage.getItem('cart'))
   }
 
-
   componentDidMount() {
     // let params = '?'
     // this.state.filteredCategories.forEach(cat => params+=`category[${this.state.filteredCategories.indexOf(cat)}]=${cat.replace(/\s/g, "%20")}&`)
@@ -66,10 +65,16 @@ export default class App extends Component {
     )
   }
 
+  setCart = numItems => {
+    localStorage.setItem('cart', numItems.toString())
+    this.setState({cart: numItems})
+  }
+
   logoutUser = () => {
     localStorage.removeItem('id')
     localStorage.removeItem('admin')
     localStorage.removeItem('name')
+    localStorage.removeItem('address')
     this.setState({ currentUser: null, admin: false, userName: null })
   }
 
@@ -201,7 +206,7 @@ export default class App extends Component {
         <Switch >
           <div style={{marginLeft: '200px'}}>
           <Route exact path='/cart' render={() =>
-          <Cart refreshIndex={this.refreshIndex}  />}
+          <Cart refreshIndex={this.refreshIndex} setCart={this.setCart} />}
           />
 
           <Route exact path='/profile' render={() =>
@@ -234,7 +239,7 @@ export default class App extends Component {
 
           <Route exact path='/artifacts/:id' render={(props) =>
     
-                <ArtDetail currentUser={this.state.currentUser} id={props.match.params.id} />
+                <ArtDetail currentUser={this.state.currentUser} id={props.match.params.id} setCart={this.setCart} />
             } />
             </div>
         </Switch>: 

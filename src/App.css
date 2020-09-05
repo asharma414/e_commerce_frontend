@@ -103,13 +103,13 @@
 }
 
 .Change:hover {
-  color:#64a6e8 !important;
+  color:#3685f6 !important;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .Change {
-  color: #64a6e8;
+  color: #3685f6;
 }
 
 .small-font {

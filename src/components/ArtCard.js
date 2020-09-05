@@ -24,10 +24,10 @@ class ArtCard extends Component {
                     </Card.Description> */}
                         </Card.Content>
                         <Card.Content extra >
-                            <a style={{ color: '#58768d' }}>
+                            <span style={{ color: '#58768d' }}>
                                 <Icon name='dollar sign' />
                                 {parseFloat(this.props.artifact.list_price).toFixed(2)}
-                            </a>
+                            </span>
                         </Card.Content>
                     </Card>
                 }

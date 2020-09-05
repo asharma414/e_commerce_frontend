@@ -62,7 +62,7 @@ export default class Login extends Component {
     render() {
         return (
             <div>
-                <img alt='Image Not Found' class='image-component' src={logo} />
+                <img alt='Not Found' class='image-component' src={logo} />
                 <div className='login_container'>
                     <Form onSubmit={(e) => {
                         this.setState({username: '', password: ''})

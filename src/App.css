@@ -103,12 +103,17 @@
 }
 
 .Change:hover {
-  color: blue !important;
+  color:#64a6e8 !important;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .Change {
-  color: blue;
+  color: #64a6e8;
+}
+
+.small-font {
+  font-size: 12px;
+  font-weight: bold;
 }
 

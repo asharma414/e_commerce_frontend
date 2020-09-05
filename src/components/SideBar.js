@@ -56,7 +56,7 @@ class SideBar extends Component {
           </Menu.Item>
 
           <Menu.Item onClick={() => this.props.history.push('/artifacts')}>
-            <img alt='Image Not Found' src={logo} />
+            <img alt='Not Found' src={logo} />
           </Menu.Item>
 
           {this.props.location.pathname === '/artifacts' ?

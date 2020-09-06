@@ -8,7 +8,7 @@ class Cart extends Component {
     render() {
         return (
            
-            <Jumbotron className='cart-jumbotron'>
+            <Jumbotron className='cart-jumbotron' style={{minHeight: '250px'}}>
                  {this.props.orders.length > 0 ? 
                  <>
                     <ListGroup style={{ overflow: 'auto', maxHeight: '250px' }}>

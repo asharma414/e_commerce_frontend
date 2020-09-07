@@ -222,7 +222,7 @@ export default class App extends Component {
           }
         }} />
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} />} />
-        <SideBar
+        <SideBar style={{minWidth: '210px'}}
           userName={this.state.userName}
           logout={this.logoutUser}
           categories={this.state.categories}

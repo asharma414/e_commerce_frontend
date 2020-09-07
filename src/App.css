@@ -41,6 +41,7 @@
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  z-index: 1;
 }
 
 #left-column::-webkit-scrollbar {

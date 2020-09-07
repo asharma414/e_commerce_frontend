@@ -238,7 +238,7 @@ export default class App extends Component {
 
        
           <Switch >
-            <div style={{ marginLeft: '200px', minWidth: '550px', zIndex: '1'}}>
+            <div style={{ marginLeft: '200px', minWidth: '550px'}}>
               <Route exact path='/cart' render={() =>
                 <Cart checkout={this.checkout} removeOrder={this.removeOrder} orders={this.state.cart} total={this.state.cartTotal} />}
               />

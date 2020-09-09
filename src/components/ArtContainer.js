@@ -21,7 +21,7 @@ export default class ArtContainer extends Component {
         const indexOfLastArtifact = this.state.currentPage * this.state.artifactsPerPage;
         const indexOfFirstArtifact = indexOfLastArtifact - this.state.artifactsPerPage;
         const currentArtifacts = filteredArt.slice(indexOfFirstArtifact, indexOfLastArtifact)
-        if (this.props.artifacts.length > 0) {
+        if (filteredArt.length > 0) {
             return (
                 <div>
                     <Grid columns={4} style={{marginTop: '10px', marginLeft: '20px', marginRight: '20px' }}>
@@ -30,7 +30,7 @@ export default class ArtContainer extends Component {
                     </Grid>
                     <br/>
                     <br/>
-                    <Pagination artifactsPerPage={this.state.artifactsPerPage} totalArtifacts={this.props.artifacts.length} currentPage={this.state.currentPage} paginate={this.paginate} />
+                    <Pagination artifactsPerPage={this.state.artifactsPerPage} totalArtifacts={filteredArt.length} currentPage={this.state.currentPage} paginate={this.paginate} />
                 </div>
             )
         } else {

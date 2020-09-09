@@ -59,11 +59,9 @@ class SideBar extends Component {
             <img alt='Not Found' src={logo} />
           </Menu.Item>
 
-          {this.props.location.pathname === '/artifacts' ?
             <Menu.Item>
-              <Input placeholder='Search by Title' onChange={this.props.handleChange} />
-            </Menu.Item> :
-            null}
+              <Input style={{display: this.props.location.pathname === '/artifacts' ? '' : 'none'}} placeholder='Search by Title' onChange={this.props.handleChange} />
+            </Menu.Item>
 
           <Menu.Item>
             <Link to='/artifacts' style={{ color: '#58768d' }}>Home</Link>
